@@ -1,82 +1,1047 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Simplivilla Product OS V3</title>
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-<style>
-:root{--bg:#f3f0e8;--paper:#fbfaf6;--ink:#20231d;--muted:#747a70;--line:#ddd9cf;--green:#314b2f;--sage:#a8b69a;--dark:#1d211c;--radius:18px;--shadow:0 12px 40px rgba(32,35,29,.06)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.side{background:var(--dark);color:#fff;padding:24px 18px;position:sticky;top:0;height:100vh}.brand{display:flex;gap:10px;align-items:center;margin-bottom:28px}.logo{width:44px;height:44px;border-radius:13px;background:#f4f0e8;color:var(--green);display:grid;place-items:center;font-family:Georgia,serif}.brand small{display:block;color:#929a90;font-size:10px;letter-spacing:.1em;text-transform:uppercase}.nav{display:grid;gap:6px}.nav button{border:0;background:transparent;color:#aab0a7;text-align:left;padding:11px 12px;border-radius:11px}.nav button.active,.nav button:hover{background:#ffffff12;color:#fff}.side p{margin-top:28px;font-size:11px;line-height:1.55;color:#838a80}main{padding:28px 32px 60px;min-width:0}.top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:20px}.eyebrow{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#64785a}h1,h2,h3,p{margin-top:0}h1{font:500 clamp(36px,5vw,58px)/.95 Georgia,serif;letter-spacing:-.045em;margin:6px 0 0}h2{font:500 27px Georgia,serif;margin:4px 0 5px}.btn{border:1px solid var(--line);background:var(--paper);padding:10px 13px;border-radius:11px;font-weight:700;color:var(--ink)}.btn.primary{background:var(--green);border-color:var(--green);color:#fff}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}.stat,.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius)}.stat{padding:14px}.stat span{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}.stat strong{display:block;font-size:22px;margin-top:6px}.view{display:none}.view.active{display:block}.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}.card{overflow:hidden;box-shadow:var(--shadow)}.head{padding:20px 22px 0}.head p{color:var(--muted);font-size:12px;line-height:1.5}.body{padding:18px 22px 22px}.drop{min-height:235px;border:1px dashed #b7b9ae;border-radius:16px;display:grid;place-items:center;text-align:center;position:relative;background:#f5f3ec;padding:26px}.drop input{position:absolute;inset:0;opacity:0;cursor:pointer}.drop b{display:block;font-size:17px}.drop span{display:block;color:var(--muted);font-size:11px;margin-top:5px}.check{display:flex;gap:9px;padding:10px;border:1px solid var(--line);border-radius:11px;margin-bottom:8px;background:#f7f5ef;font-size:12px}.check input{accent-color:var(--green)}.cost{display:grid;grid-template-columns:28px 1fr 135px 110px 30px;gap:8px;align-items:center;padding:9px;border:1px solid var(--line);border-radius:11px;margin-bottom:8px;background:#f7f5ef}.cost input,.cost select,.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:9px;background:#fff;padding:9px;outline:none}.cost .remove{border:0;background:transparent;color:#944}.field{display:grid;gap:5px;font-size:11px;font-weight:700}.field small{font-weight:500;color:var(--muted);line-height:1.4}.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.formula{margin-top:12px;background:var(--green);color:#f2f5ef;padding:12px;border-radius:11px;font-size:11px;line-height:1.5}.toolbar{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}.search{flex:1;min-width:220px;border:1px solid var(--line);border-radius:11px;padding:10px;background:#fff}.table{overflow:auto;border-top:1px solid var(--line);margin-top:14px}table{width:100%;border-collapse:collapse;min-width:1100px}th{background:#ece9e0;text-align:left;padding:10px;font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:#686d65}td{padding:10px;border-top:1px solid #e8e5dd;font-size:11px}.thumb{width:48px;height:48px;border-radius:10px;object-fit:cover;background:#e7e5de}.edit{width:100%;border:1px solid transparent;background:transparent;padding:6px;border-radius:7px}.edit:focus{background:#fff;border-color:var(--line);outline:none}.price{font-weight:800;color:var(--green)}.pill{background:#e2e8dc;color:var(--green);padding:4px 7px;border-radius:999px;font-size:9px;font-weight:800}
-.preview{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden}.sales{display:grid;grid-template-columns:minmax(270px,.78fr) minmax(420px,1.35fr) 82px;gap:26px;padding:38px;align-items:center}.copy h2{font:500 clamp(38px,4.4vw,62px)/.94 Georgia,serif;letter-spacing:-.045em;margin:15px 0 18px}.copy .lead{line-height:1.65;color:#454a42;font-size:14px}.hero{aspect-ratio:4/5;min-height:500px;border-radius:20px;overflow:hidden;background:#eeece5;position:relative}.hero img,.hero video{width:100%;height:100%;object-fit:cover;display:block}.hero.contain img{object-fit:contain;background:#fff}.hero .ph{height:100%;display:grid;place-items:center;color:#80867d;padding:20px;text-align:center}.media-rail{display:grid;gap:10px;align-content:center}.media-thumb{width:66px;height:82px;border-radius:14px;background:#ece9e0;overflow:hidden;position:relative;border:1px solid transparent;padding:0}.media-thumb.active{border-color:var(--green);box-shadow:0 0 0 2px rgba(49,75,47,.12)}.media-thumb img,.media-thumb video{width:100%;height:100%;object-fit:cover;display:block}.media-thumb .play{position:absolute;inset:0;display:grid;place-items:center;color:#fff;background:linear-gradient(180deg,transparent,rgba(0,0,0,.3))}.benefits{display:grid;gap:8px;margin-top:20px}.benefit{font-size:11px;display:flex;gap:9px;align-items:center}.benefit i{font-style:normal;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#e2e8dc;color:var(--green);flex:0 0 24px}.preview-feature{display:grid;grid-template-columns:1fr 1fr;min-height:310px;border-top:1px solid var(--line)}.preview-feature__image{background:#ece9e0;min-height:310px}.preview-feature__image img{width:100%;height:100%;object-fit:cover;display:block}.preview-feature__copy{padding:44px;display:grid;align-content:center}.preview-feature__copy h3{font:500 34px/1.05 Georgia,serif;margin:8px 0 14px}.preview-feature__copy p{color:#535950;font-size:13px;line-height:1.7}.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.mini-grid article{background:#fff;padding:28px}.mini-grid strong{display:block;margin-bottom:8px;color:var(--green)}.mini-grid p{font-size:12px;line-height:1.55;color:var(--muted);margin:0}.studio-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.box{border:1px solid var(--line);border-radius:14px;padding:15px;background:#f8f6f0}.box h3{margin:0 0 10px;font-size:14px}.field textarea{min-height:90px;resize:vertical}.media-manager{display:grid;gap:9px}.media-row{display:grid;grid-template-columns:62px 1fr 160px;gap:10px;align-items:center;padding:9px;border:1px solid var(--line);border-radius:12px;background:#fff}.media-row img{width:62px;height:62px;object-fit:cover;border-radius:10px;background:#eee}.media-row .meta{min-width:0}.media-row .meta b{display:block;font-size:11px;margin-bottom:3px}.media-row .meta small{display:block;font-size:9px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.notice{padding:12px 14px;border-radius:12px;background:#eef2ea;color:#53604e;font-size:11px;line-height:1.55}
-.native-top-note{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:14px 16px;margin-bottom:14px;border:1px solid var(--line);border-radius:14px;background:#f5f3ed;color:var(--muted)}.native-top-note span{display:block;font-size:9px;font-weight:800;letter-spacing:.12em;color:var(--green);margin-bottom:4px}.native-top-note strong{font-size:12px;color:var(--ink)}.native-top-note small{font-size:10px;text-align:right;max-width:260px;line-height:1.4}.lower-pdp-preview{background:#f8f5ee}.editorial-split{display:grid;grid-template-columns:.82fr 1.18fr;gap:0;min-height:600px;background:#f7f3ea}.editorial-split__copy{padding:64px 54px;display:grid;align-content:center}.editorial-split__copy h2{font:500 clamp(42px,5vw,70px)/.95 Georgia,serif;letter-spacing:-.045em;margin:14px 0 20px}.editorial-split__copy>p{font-size:15px;line-height:1.7;color:#565c53;max-width:480px}.editorial-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.editorial-benefit{border-top:1px solid #d8d3c9;padding-top:12px}.editorial-benefit b{display:block;font-size:11px;color:var(--green);margin-bottom:5px}.editorial-benefit span{font-size:10px;line-height:1.5;color:var(--muted)}.editorial-split__media{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:28px 28px 28px 0}.editorial-image,.editorial-video{border-radius:22px;overflow:hidden;background:#e8e5dd;min-height:520px}.editorial-image img,.editorial-video video{width:100%;height:100%;display:block;object-fit:cover}.editorial-image .ph{height:100%;display:grid;place-items:center;color:var(--muted)}.video-empty{width:100%;height:100%;display:grid;place-items:center;align-content:center;gap:8px;background:#262a24;color:#fff;text-align:center}.video-empty span{width:56px;height:56px;border:1px solid rgba(255,255,255,.55);border-radius:50%;display:grid;place-items:center;font-size:18px}.video-empty b{font-size:13px}.video-empty small{font-size:10px;color:#adb3aa}.how-section{display:grid;grid-template-columns:.75fr 1.25fr;gap:30px;padding:58px 52px;background:#fff;border-top:1px solid var(--line)}.how-section__intro h3{font:500 40px/1.05 Georgia,serif;margin:10px 0 14px}.how-section__intro p{font-size:13px;line-height:1.7;color:var(--muted);max-width:400px}.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.how-step{padding:22px;border:1px solid var(--line);border-radius:16px;background:#fbfaf7}.how-step i{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--sage-2);color:var(--green);font-style:normal;font-weight:800;margin-bottom:16px}.how-step b{display:block;font-size:12px;margin-bottom:6px}.how-step p{font-size:10px;line-height:1.55;color:var(--muted);margin:0}.details-layout{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;padding:46px 52px 58px;background:#f7f4ed;border-top:1px solid var(--line)}.details-accordion details{border-bottom:1px solid #d8d3c9;padding:0}.details-accordion summary{list-style:none;cursor:pointer;padding:18px 0;font-size:13px;font-weight:700;display:flex;justify-content:space-between}.details-accordion summary::-webkit-details-marker{display:none}.details-accordion summary::after{content:"+";font-size:20px;font-weight:400}.details-accordion details[open] summary::after{content:"−"}.details-accordion details p,.details-accordion details div{padding:0 0 18px;margin:0;font-size:11px;line-height:1.65;color:var(--muted)}.faq-item{margin:0 0 10px}.faq-item b{display:block;color:var(--ink);font-size:11px;margin-bottom:3px}.brand-signoff{min-height:360px;border-radius:20px;overflow:hidden;background:#ebe7dd;display:grid;grid-template-columns:1.05fr .95fr}.brand-signoff__image{background:#ddd9cf}.brand-signoff__image img{width:100%;height:100%;object-fit:cover;display:block}.brand-signoff__copy{padding:34px;display:grid;align-content:center;background:#f4efe5}.brand-signoff__copy span{font-size:9px;letter-spacing:.15em;font-weight:800;color:var(--green);margin-bottom:12px}.brand-signoff__copy h3{font:500 30px/1.08 Georgia,serif;margin:0;color:#2a3028}@media(max-width:1000px){.editorial-split{grid-template-columns:1fr}.editorial-split__media{padding:0 24px 24px}.how-section,.details-layout{grid-template-columns:1fr}}@media(max-width:750px){.native-top-note{align-items:flex-start;flex-direction:column}.native-top-note small{text-align:left}.editorial-split__copy{padding:38px 22px 28px}.editorial-split__copy h2{font-size:42px}.editorial-benefits{grid-template-columns:1fr;gap:10px}.editorial-split__media{grid-template-columns:1fr;gap:12px;padding:0 16px 16px}.editorial-image,.editorial-video{min-height:360px}.how-section{padding:42px 22px}.how-steps{grid-template-columns:1fr}.details-layout{padding:36px 22px 44px}.brand-signoff{grid-template-columns:1fr}.brand-signoff__image{min-height:230px}}@media(max-width:1100px){.sales{grid-template-columns:1fr 1.25fr}.media-rail{grid-column:1/-1;display:flex;overflow:auto}.media-thumb{flex:0 0 66px}.studio-grid{grid-template-columns:1fr}}@media(max-width:1000px){.app{grid-template-columns:1fr}.side{height:auto;position:relative}.nav{display:flex;overflow:auto}.side p{display:none}.grid{grid-template-columns:1fr}.hero{min-height:420px}main{padding:20px}}@media(max-width:750px){.stats{grid-template-columns:1fr 1fr}.top{flex-direction:column}.form{grid-template-columns:1fr}.cost{grid-template-columns:26px 1fr}.cost select,.cost input,.cost .remove{grid-column:2}.sales{grid-template-columns:1fr;padding:20px}.copy h2{font-size:44px}.hero{min-height:0;aspect-ratio:4/5}.media-rail{display:flex;grid-column:auto;overflow:auto}.preview-feature{grid-template-columns:1fr}.mini-grid{grid-template-columns:1fr}.media-row{grid-template-columns:54px 1fr}.media-row select{grid-column:2}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <title>Sistema de Dízimos - Assembleia de Deus</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script>window.react = window.React;</script>
+  <script src="https://unpkg.com/lucide-react@0.525.0/dist/umd/lucide-react.min.js"></script>
+  <style>
+    html, body, #root { width:100%; min-height:100%; margin:0; }
+    body { background:#f3f4f6; font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    .flex { min-height:0; min-width:0; }
+    #boot-error { display:none; position:fixed; inset:0; z-index:999999; background:#fff; color:#991b1b; padding:32px; font-family:system-ui,sans-serif; overflow:auto; }
+    #boot-error h1 { font-size:22px; font-weight:700; margin:0 0 10px; }
+    #boot-error pre { white-space:pre-wrap; background:#fef2f2; padding:16px; border-radius:12px; border:1px solid #fecaca; }
+  </style>
 </head>
 <body>
-<div class="app">
-<aside class="side">
-  <div class="brand"><div class="logo">sv</div><div><strong>Simplivilla OS</strong><small>Product & Commerce</small></div></div>
-  <div class="nav">
-    <button class="active" data-view="import">◫ Importar</button>
-    <button data-view="pricing">⌁ Precificação</button>
-    <button data-view="copy">✦ PDP Studio</button>
-    <button data-view="media">▦ Mídias</button>
-    <button data-view="settings">⚙ Configurações</button>
-  </div>
-  <p>V3: precificação + organização de mídia + copy por produto + módulos inferiores de PDP + exportação Shopify.</p>
-</aside>
-<main>
-<header class="top"><div><div class="eyebrow">Simplivilla · Operação de catálogo</div><h1>Product OS V3</h1></div><div><button class="btn" id="demo">Demonstração</button> <button class="btn primary" id="export">Exportar CSV Shopify</button></div></header>
-<section class="stats"><div class="stat"><span>Produtos</span><strong id="sProducts">0</strong></div><div class="stat"><span>Custo médio</span><strong id="sCost">R$ 0,00</strong></div><div class="stat"><span>Preço médio</span><strong id="sPrice">R$ 0,00</strong></div><div class="stat"><span>Margem</span><strong id="sMargin">0%</strong></div></section>
-<section class="view active" id="view-import"><div class="grid"><article class="card"><div class="head"><div class="eyebrow">01 · CSV Shopify</div><h2>Arraste a exportação</h2><p>Agrupamos por Handle e mantemos somente as imagens do próprio produto.</p></div><div class="body"><div class="drop"><input id="file" type="file" accept=".csv"><div><b>Arraste o CSV da Shopify</b><span>Ou clique para selecionar.</span></div></div></div></article><article class="card"><div class="head"><div class="eyebrow">02 · Processar</div><h2>O que aplicar?</h2><p>Você decide exatamente o que será alterado.</p></div><div class="body"><label class="check"><input id="aPrice" type="checkbox" checked><span><b>Precificação</b><br>Atualizar Variant Price.</span></label><label class="check"><input id="aTitle" type="checkbox"><span><b>Nome curto</b><br>2–3 termos.</span></label><label class="check"><input id="aCopy" type="checkbox"><span><b>Copy / página de vendas</b><br>Estrutura específica por produto.</span></label><label class="check"><input id="aTags" type="checkbox"><span><b>Tags</b><br>Complementar organização.</span></label><button class="btn primary" id="process" style="width:100%;margin-top:10px">Processar catálogo</button></div></article></div><article class="card" style="margin-top:16px"><div class="head"><div class="eyebrow">Catálogo</div><h2>Produtos importados</h2></div><div class="body" style="padding-bottom:0"><div class="toolbar"><input id="search" class="search" placeholder="Buscar produto, handle ou SKU..."><span class="pill" id="mode">Aguardando CSV</span></div></div><div class="table"><table><thead><tr><th>Imagem</th><th>Produto</th><th>Handle</th><th>SKU</th><th>Custo</th><th>Fixos</th><th>Taxas</th><th>Preço</th><th>Margem</th></tr></thead><tbody id="tbody"></tbody></table></div></article></section>
-<section class="view" id="view-pricing"><article class="card"><div class="head"><div class="eyebrow">Motor de preço</div><h2>Custos configuráveis</h2><p>Valor 0,00 fica salvo e simplesmente não soma.</p><button class="btn" id="addCost">+ Adicionar custo</button></div><div class="body"><div id="costs"></div><div class="form"><label class="field">Markup<select id="markup"><option>1.5</option><option>1.7</option><option>1.8</option><option selected>2</option><option>2.2</option><option>2.5</option><option>3</option></select></label><label class="field">Arredondamento<select id="round"><option value="none">Sem arredondar</option><option value="90" selected>Final ,90</option><option value="99">Final ,99</option></select></label></div><div class="formula">(custo do produto + custos fixos ativos) × markup ÷ (1 − taxas percentuais ativas)</div></div></article></section>
-<section class="view" id="view-copy"><article class="card"><div class="head"><div class="eyebrow">PDP Studio V3</div><h2>Parte inferior da página de produto</h2><p>O topo nativo do Taste continua responsável por galeria, preço, variantes, quantidade e compra. O Product OS gera somente os módulos editoriais abaixo dessa área.</p><select id="productSelect" class="btn"></select></div><div class="body">
-<div class="native-top-note"><div><span>TOPO NATIVO DO TASTE</span><strong>Galeria · preço · variantes · quantidade · compra</strong></div><small>Preservado. O Product OS começa abaixo daqui.</small></div>
-<div class="preview lower-pdp-preview"><section class="editorial-split"><div class="editorial-split__copy"><div class="eyebrow" id="pEyebrow">SOLUÇÃO PARA UMA ROTINA MAIS SIMPLES</div><h2 id="pTitle">Seu produto aparece aqui</h2><p id="pDesc">Importe o CSV para visualizar.</p><div class="editorial-benefits" id="pBenefits"></div></div><div class="editorial-split__media"><div class="editorial-image" id="editorialImage"><div class="ph">Imagem de uso do produto</div></div><div class="editorial-video" id="editorialVideo"><div class="video-empty"><span>▶</span><b>Vídeo do produto</b><small>Opcional</small></div></div></div></section>
-<section class="how-section"><div class="how-section__intro"><div class="eyebrow">COMO FUNCIONA</div><h3 id="pFeatureTitle">Uma tarefa mais simples.</h3><p id="pFeatureText">Selecione um produto para visualizar a explicação.</p></div><div class="how-steps" id="pUsage"></div></section>
-<section class="details-layout"><div class="details-accordion"><details open><summary>O que resolve</summary><p id="pProblem"></p></details><details><summary>Detalhes do produto</summary><p id="pDetails"></p></details><details><summary>Cuidados</summary><p id="pCare"></p></details><details><summary>Perguntas frequentes</summary><div id="pFaq"></div></details></div><div class="brand-signoff"><div class="brand-signoff__image" id="signoffImage"></div><div class="brand-signoff__copy"><span>SIMPLIVILLA</span><h3>Pequenos cuidados.<br>Mais tempo para o que importa.</h3></div></div></section></div>
-<div class="studio-grid"><div class="box"><h3>Copy editorial</h3><label class="field">Título principal<input id="cTitle"></label><label class="field" style="margin-top:8px">Texto principal<textarea id="cDesc"></textarea></label><label class="field" style="margin-top:8px">Benefícios, um por linha<textarea id="cBenefits"></textarea></label></div><div class="box"><h3>Explicação e uso</h3><label class="field">Título “Como funciona”<input id="cFeatureTitle"></label><label class="field" style="margin-top:8px">Texto “Como funciona”<textarea id="cFeatureText"></textarea></label><label class="field" style="margin-top:8px">Como usar, um passo por linha<textarea id="cUsage"></textarea></label></div><div class="box"><h3>Informações do produto</h3><label class="field">Problema que resolve<textarea id="cProblem"></textarea></label><label class="field" style="margin-top:8px">Detalhes / conteúdo / medidas<textarea id="cDetails"></textarea></label><label class="field" style="margin-top:8px">Cuidados<textarea id="cCare"></textarea></label></div><div class="box"><h3>FAQ</h3><label class="field">Perguntas e respostas<textarea id="cFaq" placeholder="Pergunta 1 | Resposta 1&#10;Pergunta 2 | Resposta 2"></textarea><small>Use uma linha por item, separando pergunta e resposta com |</small></label></div><div class="box"><h3>Vídeo do produto</h3><label class="field">URL MP4/WebM<input id="video" placeholder="https://cdn.shopify.com/...mp4"><small>Se houver vídeo, ele aparece ao lado da imagem editorial.</small></label></div><div class="box"><h3>Importação Shopify</h3><div class="notice">Com “Copy / página de vendas” marcado e “Atualizar Body HTML? = Sim”, o conteúdo abaixo é gravado em <b>Body (HTML)</b> no CSV exportado. Ao importar esse CSV na Shopify, a descrição do produto recebe os módulos.</div><label class="check" style="margin-top:12px"><input id="copyReviewed" type="checkbox"><span><b>Copy revisada</b><br>Marque depois de revisar claims, medidas, modo de uso e FAQ.</span></label></div></div>
-</div></article></section><section class="view" id="view-media"><article class="card"><div class="head"><div class="eyebrow">Media Studio</div><h2>Organize as imagens do produto</h2><p>Classifique cada mídia para o sistema deixar de adivinhar.</p><select id="mediaProductSelect" class="btn"></select></div><div class="body"><div class="media-manager" id="mediaManager"></div></div></article></section>
-<section class="view" id="view-settings"><article class="card"><div class="head"><div class="eyebrow">Configurações</div><h2>Padrões do sistema</h2></div><div class="body"><div class="form"><label class="field">Marca<input id="brand" value="Simplivilla"></label><label class="field">Eyebrow padrão<input id="eyebrow" value="SOLUÇÃO PARA UMA ROTINA MAIS SIMPLES"></label><label class="field">Status exportado<select id="status"><option value="">Preservar</option><option value="draft">Draft</option><option value="active">Active</option></select></label><label class="field">Atualizar Body HTML?<select id="bodyWrite"><option value="yes">Sim</option><option value="no">Não</option></select></label></div></div></article></section>
-</main></div>
-<script>
-const $=id=>document.getElementById(id),money=v=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(Number(v||0));
-const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
-const num=v=>{let s=String(v||'').replace(/[R$\s]/g,'');if(s.includes(',')&&s.includes('.'))s=s.lastIndexOf(',')>s.lastIndexOf('.')?s.replace(/\./g,'').replace(',','.'):s.replace(/,/g,'');else s=s.replace(',','.');let n=Number(s);return isFinite(n)?n:0};
-const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-const DEFAULT_ROLES=['principal','uso','detalhe','medidas','avaliacao','extra','extra','extra'];
-let S=JSON.parse(localStorage.getItem('svos_v3')||'null')||{costs:[{id:'box',name:'Caixa personalizada',type:'fixed',value:0,active:true},{id:'manual',name:'Manual impresso',type:'fixed',value:0,active:true},{id:'checkout',name:'Checkout / processamento',type:'percent',value:3.49,active:true},{id:'shopify',name:'Taxa Shopify',type:'percent',value:0,active:false},{id:'ops',name:'Custo operacional',type:'fixed',value:0,active:true}],markup:2,round:'90',brand:'Simplivilla',eyebrow:'SOLUÇÃO PARA UMA ROTINA MAIS SIMPLES',status:'',bodyWrite:'yes',productDrafts:{}};
-let state={rows:[],headers:[],products:[]},activeMedia={};const save=()=>localStorage.setItem('svos_v3',JSON.stringify(S));
-function pick(row,names){let ks=Object.keys(row);for(let n of names){let k=ks.find(x=>norm(x)===norm(n));if(k&&row[k]!==''&&row[k]!=null)return row[k]}return''}
-const stop=new Set(['para','com','de','da','do','das','dos','em','no','na','kit','novo','nova','produto','multiuso','premium','universal','conjunto']);
-function short(t){let out=[];for(let x of norm(t).split(' ').filter(x=>x.length>2&&!stop.has(x))){if(!out.includes(x))out.push(x);if(out.length===3)break}return out.length?out.map(x=>x[0].toUpperCase()+x.slice(1)).join(' '):t}
-function smartCopy(title){const n=norm(title),base=short(title),generic={title:base,desc:'Uma solução escolhida para tornar uma tarefa do dia a dia mais simples, prática e direta.',benefits:['Mais praticidade na rotina','Uso simples no dia a dia','Uma solução para uma tarefa recorrente'],featureTitle:'Uma forma mais simples de lidar com essa tarefa.',featureText:'O produto entra na rotina como uma ferramenta prática. Revise o texto com base nas instruções reais do fornecedor antes de exportar.',usage:['Prepare o produto para uso','Utilize conforme a orientação do fabricante','Limpe ou guarde após finalizar'],problem:'Ajuda a tornar uma tarefa recorrente mais prática.',details:'Preencha aqui conteúdo da embalagem, medidas, material e outras informações confirmadas pelo fornecedor.',care:'Siga sempre as instruções do fabricante e teste o uso adequado ao material ou superfície.',faq:[['Como usar?','Siga as instruções do fabricante e adapte o uso à necessidade do produto.'],['O que vem na embalagem?','Confirme o conteúdo da embalagem com o fornecedor antes de publicar.'],['Precisa de algum cuidado especial?','Consulte as orientações específicas do produto.']]};if(n.includes('persiana')||n.includes('janela'))return{...generic,title:'Limpador de Persianas',desc:'Uma forma mais prática de alcançar as lâminas e reduzir o trabalho de uma limpeza repetitiva.',benefits:['Ajuda a alcançar várias lâminas','Facilita o acesso a espaços estreitos','Uso simples no dia a dia'],featureTitle:'Menos movimentos em uma tarefa repetitiva.',featureText:'O formato foi pensado para alcançar os espaços entre as lâminas com mais praticidade.',usage:['Posicione o limpador entre as lâminas','Deslize suavemente pela superfície','Limpe o acessório após o uso'],problem:'A poeira entre as lâminas costuma exigir movimentos repetidos e atenção em espaços estreitos.',details:'Preencha dimensões, material e conteúdo da embalagem com base na ficha do fornecedor.',care:'Evite força excessiva e confirme a compatibilidade com o material da persiana.',faq:[['Serve para qualquer persiana?','Confirme largura e formato das lâminas antes de publicar essa informação.'],['Posso usar úmido?','Use apenas se o material da persiana e o produto permitirem.'],['É lavável?','Confirme o modo correto de limpeza do acessório com o fornecedor.']]};if(n.includes('tenis')||n.includes('calcado')||n.includes('sapato'))return{...generic,title:'Bolsa para Lavagem de Calçados',desc:'Uma camada de proteção para organizar a lavagem de calçados na máquina com mais praticidade.',benefits:['Ajuda a reduzir o contato direto com o tambor','Mantém o calçado organizado durante a lavagem','Facilita uma tarefa que exige cuidado'],featureTitle:'Mais organização para a lavagem dos calçados.',featureText:'A bolsa cria uma separação entre o calçado e o tambor durante o ciclo.',usage:['Coloque o calçado dentro da bolsa','Feche corretamente antes da lavagem','Use um ciclo compatível com o material do calçado'],problem:'Lavar calçados soltos na máquina pode gerar atrito e desorganização durante o ciclo.',details:'Preencha dimensões da bolsa, material, fechamento e quantidade de itens com base no fornecedor.',care:'Nem todo calçado pode ser lavado em máquina. Siga as instruções do fabricante do calçado.',faq:[['Cabe qualquer tamanho de calçado?','Confirme as medidas internas da bolsa antes de publicar.'],['Posso lavar qualquer tênis?','Depende do material e das instruções do fabricante do calçado.'],['A bolsa pode ser reutilizada?','Confirme material e cuidados de conservação com o fornecedor.']]};if(n.includes('ultra black')||n.includes('tecido preto')||n.includes('roupa preta')||n.includes('pastilha'))return{...generic,title:'Proteção Ultra Black',desc:'Um cuidado extra para incluir na rotina de lavagem das peças escuras, sem transformar o processo em algo complicado.',benefits:['Pensado para a rotina de peças escuras','Uso simples junto à lavagem','Complementa o cuidado com suas roupas'],featureTitle:'Um pequeno cuidado dentro de uma rotina que já existe.',featureText:'A proposta é adicionar uma etapa simples à lavagem. Revise os benefícios técnicos exatos de acordo com a embalagem e o fornecedor.',usage:['Separe as peças escuras','Adicione a unidade conforme a orientação do produto','Faça a lavagem normalmente'],problem:'Peças escuras exigem cuidado para manter uma boa aparência ao longo das lavagens.',details:'Preencha quantidade de unidades, composição e instruções de uso exatamente como informado pelo fornecedor.',care:'Siga a dosagem e as instruções da embalagem. Não publique claims de proteção de cor sem confirmação do fornecedor.',faq:[['Quantas unidades usar por lavagem?','Preencha de acordo com a instrução oficial do produto.'],['Pode ser usado com qualquer tecido?','Confirme as restrições e compatibilidades na embalagem.'],['Substitui sabão ou amaciante?','Publique apenas o que estiver confirmado nas instruções do fornecedor.']]};if(n.includes('dispenser'))return{...generic,title:'Escova com Dispenser',desc:'Produto e escova no mesmo movimento para reduzir pequenas interrupções durante a limpeza.',benefits:['Dispenser integrado ao cabo','Produto de limpeza mais acessível durante o uso','Boa para tarefas rápidas'],featureTitle:'Menos interrupções durante a limpeza.',featureText:'O dispenser integrado mantém o produto de limpeza próximo da escova durante o uso.',usage:['Abra e abasteça o dispenser','Libere a quantidade necessária','Esfregue a superfície adequada'],problem:'Parar repetidamente para reaplicar produto pode tornar uma tarefa simples mais demorada.',details:'Preencha capacidade do reservatório, material das cerdas e superfícies indicadas.',care:'Não use em superfícies sensíveis sem testar antes. Siga a indicação do fabricante.',faq:[['Qual produto posso colocar no dispenser?','Use somente líquidos compatíveis com o reservatório e com a superfície.'],['As cerdas riscam?','Confirme o material das cerdas e teste em uma área discreta.'],['Como limpar depois do uso?','Esvazie e higienize conforme a orientação do fabricante.']]};if(n.includes('sanitaria')||n.includes('vaso'))return{...generic,title:'Escova Sanitária Descartável',desc:'Uma solução prática para organizar a limpeza do vaso com cabeças substituíveis.',benefits:['Cabeças substituíveis','Descarte após o uso','Armazenamento compacto'],featureTitle:'Uma limpeza mais organizada do começo ao fim.',featureText:'O sistema permite encaixar a cabeça de limpeza, usar e remover após finalizar.',usage:['Encaixe uma cabeça de limpeza','Faça a higienização conforme a necessidade','Remova e descarte conforme a orientação'],problem:'A escova sanitária tradicional permanece armazenada após o uso e exige manutenção constante.',details:'Preencha quantidade de refis, dimensões, materiais e conteúdo do conjunto.',care:'Não descarte em local inadequado. Siga as instruções do fabricante e da embalagem.',faq:[['Quantos refis vêm na embalagem?','Preencha conforme o produto recebido do fornecedor.'],['Os refis são vendidos separadamente?','Confirme disponibilidade antes de publicar.'],['Como fazer o descarte?','Siga a orientação da embalagem e as regras locais de descarte.']]};return generic}function ensureDraft(p){let saved=S.productDrafts[p.handle]||{},fresh=smartCopy(p.title);p.copy={title:saved.copy?.title||fresh.title,desc:saved.copy?.desc||fresh.desc,benefits:Array.isArray(saved.copy?.benefits)?saved.copy.benefits:fresh.benefits,featureTitle:saved.copy?.featureTitle||fresh.featureTitle,featureText:saved.copy?.featureText||fresh.featureText,usage:Array.isArray(saved.copy?.usage)?saved.copy.usage:fresh.usage,problem:saved.copy?.problem||fresh.problem,details:saved.copy?.details||fresh.details,care:saved.copy?.care||fresh.care,faq:Array.isArray(saved.copy?.faq)?saved.copy.faq:fresh.faq};p.video=saved.video||'';p.reviewed=Boolean(saved.reviewed);p.heroFit=saved.heroFit||'cover';p.mediaRoles=Array.isArray(saved.mediaRoles)?p.images.map((_,i)=>saved.mediaRoles[i]||DEFAULT_ROLES[i]||'extra'):p.images.map((_,i)=>DEFAULT_ROLES[i]||'extra')}
-function persistProduct(p){if(!p)return;S.productDrafts[p.handle]={copy:p.copy,video:p.video,reviewed:Boolean(p.reviewed),heroFit:p.heroFit,mediaRoles:p.mediaRoles};save()}
-function group(rows){let m=new Map();rows.forEach((r,i)=>{let h=String(pick(r,['Handle'])||`produto-${i+1}`);if(!m.has(h))m.set(h,{handle:h,rows:[],images:[]});let p=m.get(h);p.rows.push(r);let im=String(pick(r,['Image Src'])||'').trim();if(im&&!p.images.includes(im))p.images.push(im)});return[...m.values()].map((p,i)=>{let r=p.rows[0],title=String(pick(r,['Title'])||p.handle),product={...p,id:'p'+i,title,shortTitle:title,sku:String(pick(r,['Variant SKU','SKU'])||''),cost:num(pick(r,['Cost per item','Cost'])),tags:String(pick(r,['Tags'])||'')};ensureDraft(product);return product})}
-const fixed=()=>S.costs.filter(c=>c.active&&c.type==='fixed').reduce((a,c)=>a+Number(c.value||0),0),pct=()=>S.costs.filter(c=>c.active&&c.type==='percent').reduce((a,c)=>a+Number(c.value||0),0)/100;
-function roundPrice(v){if(S.round==='none')return Math.round(v*100)/100;let e=S.round==='90'?.90:.99,c=Math.floor(Math.ceil(v)/10)*10+e;if(c<v)c+=10;return Math.round(c*100)/100}
-function calc(p){let f=fixed(),r=pct(),base=Number(p.cost||0)+f,price=roundPrice(base*S.markup/Math.max(.01,1-r)),profit=price-price*r-base;return{f,r,base,price,margin:price?profit/price*100:0}}
-function renderCosts(){$('costs').innerHTML='';S.costs.forEach(c=>{let d=document.createElement('div');d.className='cost';d.innerHTML=`<input type="checkbox" ${c.active?'checked':''} data-a="${c.id}"><b>${esc(c.name)}</b><select data-t="${c.id}"><option value="fixed" ${c.type==='fixed'?'selected':''}>R$ / pedido</option><option value="percent" ${c.type==='percent'?'selected':''}>% do pedido</option></select><input type="number" min="0" step=".01" value="${c.value}" data-v="${c.id}"><button class="remove" data-r="${c.id}">×</button>`;$('costs').appendChild(d)});document.querySelectorAll('[data-a]').forEach(x=>x.onchange=()=>{S.costs.find(c=>c.id===x.dataset.a).active=x.checked;sync()});document.querySelectorAll('[data-t]').forEach(x=>x.onchange=()=>{S.costs.find(c=>c.id===x.dataset.t).type=x.value;sync()});document.querySelectorAll('[data-v]').forEach(x=>x.onchange=()=>{S.costs.find(c=>c.id===x.dataset.v).value=Number(x.value||0);sync()});document.querySelectorAll('[data-r]').forEach(x=>x.onclick=()=>{S.costs=S.costs.filter(c=>c.id!==x.dataset.r);sync()});$('markup').value=S.markup;$('round').value=S.round;$('brand').value=S.brand;$('eyebrow').value=S.eyebrow;$('status').value=S.status;$('bodyWrite').value=S.bodyWrite}
-function renderProducts(){let q=norm($('search').value);$('tbody').innerHTML='';state.products.filter(p=>!q||norm(`${p.title} ${p.handle} ${p.sku}`).includes(q)).forEach(p=>{let c=calc(p),tr=document.createElement('tr'),im=p.images[0];tr.innerHTML=`<td>${im?`<img class="thumb" src="${esc(im)}">`:`<div class="thumb"></div>`}</td><td><input class="edit" data-p="${p.id}" data-f="shortTitle" value="${esc(p.shortTitle)}"><small>${esc(p.title)}</small></td><td>${esc(p.handle)}</td><td><input class="edit" data-p="${p.id}" data-f="sku" value="${esc(p.sku)}"></td><td><input class="edit" type="number" step=".01" data-p="${p.id}" data-f="cost" value="${p.cost.toFixed(2)}"></td><td>${money(c.f)}</td><td>${(c.r*100).toFixed(2).replace('.',',')}%</td><td class="price">${money(c.price)}</td><td>${c.margin.toFixed(1).replace('.',',')}%</td>`;$('tbody').appendChild(tr)});document.querySelectorAll('[data-p]').forEach(x=>x.onchange=()=>{let p=state.products.find(p=>p.id===x.dataset.p);p[x.dataset.f]=x.dataset.f==='cost'?Number(x.value||0):x.value;renderStats();renderPreview()});$('mode').textContent=state.products.length?`${state.products.length} produtos`:'Aguardando CSV'}
-function renderStats(){$('sProducts').textContent=state.products.length;if(!state.products.length){$('sCost').textContent=money(0);$('sPrice').textContent=money(0);$('sMargin').textContent='0%';return}let cs=state.products.map(calc);$('sCost').textContent=money(cs.reduce((a,c)=>a+c.base,0)/cs.length);$('sPrice').textContent=money(cs.reduce((a,c)=>a+c.price,0)/cs.length);$('sMargin').textContent=(cs.reduce((a,c)=>a+c.margin,0)/cs.length).toFixed(1).replace('.',',')+'%'}
-const selected=()=>state.products.find(p=>p.id===$('productSelect').value)||state.products[0],selectedMediaProduct=()=>state.products.find(p=>p.id===$('mediaProductSelect').value)||state.products[0];
-function renderSelect(){let opts=state.products.length?state.products.map(p=>`<option value="${p.id}">${esc(p.shortTitle)}</option>`).join(''):'<option>Nenhum produto</option>';$('productSelect').innerHTML=opts;$('mediaProductSelect').innerHTML=opts;renderPreview();renderMediaManager()}
-const getRoleImage=(p,role)=>{let idx=p.mediaRoles.findIndex(r=>r===role);return idx>=0?p.images[idx]:''};
-function mediaItems(p){let items=[];if(p.video)items.push({type:'video',src:p.video,label:'Vídeo'});p.images.forEach((src,i)=>items.push({type:'image',src,label:p.mediaRoles[i]||'extra',imageIndex:i}));return items}
-function renderHeroMedia(p,item){let hero=$('hero');hero.classList.toggle('contain',p.heroFit==='contain');if(!item){hero.innerHTML='<div class="ph">Imagem principal</div>';return}hero.innerHTML=item.type==='video'?`<video src="${esc(item.src)}" muted autoplay loop playsinline controls></video>`:`<img src="${esc(item.src)}" alt="${esc(p.copy.title)}">`}
-function renderPreview(){let p=selected();if(!p)return;$('pEyebrow').textContent=S.eyebrow;$('pTitle').textContent=p.copy.title;$('pDesc').textContent=p.copy.desc;$('pBenefits').innerHTML=p.copy.benefits.slice(0,3).map((b,i)=>`<div class="editorial-benefit"><b>0${i+1}</b><span>${esc(b)}</span></div>`).join('');$('pFeatureTitle').textContent=p.copy.featureTitle;$('pFeatureText').textContent=p.copy.featureText;$('pUsage').innerHTML=p.copy.usage.slice(0,3).map((step,i)=>`<article class="how-step"><i>${i+1}</i><b>Passo ${i+1}</b><p>${esc(step)}</p></article>`).join('');$('pProblem').textContent=p.copy.problem||'';$('pDetails').textContent=p.copy.details||'';$('pCare').textContent=p.copy.care||'';$('pFaq').innerHTML=(p.copy.faq||[]).map(item=>`<div class="faq-item"><b>${esc(item[0]||'')}</b><span>${esc(item[1]||'')}</span></div>`).join('');let usageImage=getRoleImage(p,'uso')||p.images[1]||p.images[0]||'',signoff=getRoleImage(p,'detalhe')||getRoleImage(p,'beneficio')||p.images[2]||p.images[0]||'';$('editorialImage').innerHTML=usageImage?`<img src="${esc(usageImage)}" alt="${esc(p.copy.title)}">`:'<div class="ph">Imagem de uso do produto</div>';$('signoffImage').innerHTML=signoff?`<img src="${esc(signoff)}" alt="">`:'';$('editorialVideo').innerHTML=p.video?`<video src="${esc(p.video)}" muted autoplay loop playsinline controls></video>`:`<div class="video-empty"><span>▶</span><b>Vídeo do produto</b><small>Opcional</small></div>`;$('cTitle').value=p.copy.title;$('cDesc').value=p.copy.desc;$('cBenefits').value=p.copy.benefits.join('\n');$('cFeatureTitle').value=p.copy.featureTitle;$('cFeatureText').value=p.copy.featureText;$('cUsage').value=p.copy.usage.join('\n');$('cProblem').value=p.copy.problem||'';$('cDetails').value=p.copy.details||'';$('cCare').value=p.copy.care||'';$('cFaq').value=(p.copy.faq||[]).map(item=>`${item[0]} | ${item[1]}`).join('\n');$('video').value=p.video;$('copyReviewed').checked=Boolean(p.reviewed)}function renderMediaManager(){let p=selectedMediaProduct(),root=$('mediaManager');if(!p){root.innerHTML='<div class="notice">Importe um produto para organizar as mídias.</div>';return}if(!p.images.length){root.innerHTML='<div class="notice">Este produto não possui Image Src no CSV.</div>';return}root.innerHTML=p.images.map((src,i)=>`<div class="media-row"><img src="${esc(src)}" alt=""><div class="meta"><b>Imagem ${i+1}</b><small>${esc(src)}</small></div><select data-role-index="${i}">${[['principal','Principal'],['uso','Produto em uso'],['detalhe','Detalhe'],['medidas','Medidas'],['beneficio','Benefício'],['avaliacao','Avaliação / prova social'],['extra','Extra'],['ocultar','Ocultar']].map(([v,l])=>`<option value="${v}" ${p.mediaRoles[i]===v?'selected':''}>${l}</option>`).join('')}</select></div>`).join('');document.querySelectorAll('[data-role-index]').forEach(s=>s.onchange=()=>{p.mediaRoles[Number(s.dataset.roleIndex)]=s.value;persistProduct(p);renderPreview()})}
-function sync(){save();renderCosts();renderProducts();renderStats();renderPreview();renderMediaManager()}
-function handle(file){Papa.parse(file,{header:true,skipEmptyLines:true,complete:r=>{state.rows=r.data;state.headers=r.meta.fields||Object.keys(r.data[0]||{});state.products=group(r.data);renderProducts();renderStats();renderSelect()}})}
-function process(){state.products.forEach(p=>{if($('aTitle').checked)p.shortTitle=short(p.title);if($('aCopy').checked){p.copy=smartCopy(p.shortTitle);persistProduct(p)}if($('aTags').checked){let set=new Set((p.tags||'').split(',').map(x=>x.trim()).filter(Boolean));set.add(S.brand);p.tags=[...set].join(', ')}});renderProducts();renderSelect()}
-const mediaForExport=(p,role)=>{let i=p.mediaRoles.findIndex(r=>r===role);return i>=0?p.images[i]:''};
-function bodyHtml(p){let usage=mediaForExport(p,'uso')||p.images[1]||p.images[0]||'',detail=mediaForExport(p,'detalhe')||mediaForExport(p,'beneficio')||p.images[2]||p.images[0]||'',img=(src,alt='')=>src?`<img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover;">`:'',faqHtml=(p.copy.faq||[]).map(item=>`<details style="border-bottom:1px solid #d9d5cc;padding:0;"><summary style="cursor:pointer;padding:16px 0;font-weight:700;">${esc(item[0]||'')}</summary><p style="margin:0;padding:0 0 16px;color:#666b63;line-height:1.65;">${esc(item[1]||'')}</p></details>`).join('');return `<div class="simplivilla-pdp-lower" style="max-width:1200px;margin:0 auto;color:#20231d;font-family:Arial,sans-serif;"><section style="display:grid;grid-template-columns:.85fr 1.15fr;background:#f7f3ea;"><div style="padding:56px 48px;display:flex;flex-direction:column;justify-content:center;"><p style="margin:0 0 12px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#6d8060;">${esc(S.eyebrow)}</p><h2 style="margin:0 0 18px;font-family:Georgia,serif;font-size:48px;line-height:1.02;font-weight:500;">${esc(p.copy.title)}</h2><p style="margin:0;color:#5f645c;font-size:15px;line-height:1.7;">${esc(p.copy.desc)}</p><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px;">${p.copy.benefits.slice(0,3).map((b,i)=>`<div style="border-top:1px solid #d8d3c9;padding-top:10px;"><strong style="display:block;color:#314b2f;font-size:11px;margin-bottom:5px;">0${i+1}</strong><span style="font-size:11px;line-height:1.5;color:#747a70;">${esc(b)}</span></div>`).join('')}</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:24px 24px 24px 0;"><div style="min-height:470px;border-radius:20px;overflow:hidden;background:#e8e5dd;">${img(usage,p.copy.title)}</div><div style="min-height:470px;border-radius:20px;overflow:hidden;background:#262a24;">${p.video?`<video src="${esc(p.video)}" muted autoplay loop playsinline controls style="display:block;width:100%;height:100%;object-fit:cover;"></video>`:`<div style="height:100%;display:flex;align-items:center;justify-content:center;color:#fff;text-align:center;padding:30px;"><div><div style="font-size:36px;margin-bottom:10px;">▶</div><strong>Vídeo do produto</strong></div></div>`}</div></div></section><section style="display:grid;grid-template-columns:.75fr 1.25fr;gap:30px;padding:52px 46px;background:#fff;"><div><p style="margin:0 0 10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#6d8060;">COMO FUNCIONA</p><h3 style="margin:0 0 14px;font-family:Georgia,serif;font-size:34px;line-height:1.05;font-weight:500;">${esc(p.copy.featureTitle)}</h3><p style="margin:0;color:#747a70;font-size:13px;line-height:1.7;">${esc(p.copy.featureText)}</p></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">${p.copy.usage.slice(0,3).map((s,i)=>`<div style="border:1px solid #ddd9cf;border-radius:14px;padding:18px;background:#fbfaf7;"><span style="display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center;border-radius:50%;background:#e2e8dc;color:#314b2f;font-weight:700;margin-bottom:12px;">${i+1}</span><strong style="display:block;margin-bottom:6px;">Passo ${i+1}</strong><p style="margin:0;color:#747a70;font-size:11px;line-height:1.55;">${esc(s)}</p></div>`).join('')}</div></section><section style="display:grid;grid-template-columns:1.05fr .95fr;gap:28px;padding:44px 46px 56px;background:#f7f4ed;"><div><details open style="border-bottom:1px solid #d9d5cc;"><summary style="cursor:pointer;padding:16px 0;font-weight:700;">O que resolve</summary><p style="margin:0;padding:0 0 16px;color:#666b63;line-height:1.65;">${esc(p.copy.problem||'')}</p></details><details style="border-bottom:1px solid #d9d5cc;"><summary style="cursor:pointer;padding:16px 0;font-weight:700;">Detalhes do produto</summary><p style="margin:0;padding:0 0 16px;color:#666b63;line-height:1.65;">${esc(p.copy.details||'')}</p></details><details style="border-bottom:1px solid #d9d5cc;"><summary style="cursor:pointer;padding:16px 0;font-weight:700;">Cuidados</summary><p style="margin:0;padding:0 0 16px;color:#666b63;line-height:1.65;">${esc(p.copy.care||'')}</p></details>${faqHtml}</div><div style="display:grid;grid-template-columns:1.05fr .95fr;min-height:340px;border-radius:18px;overflow:hidden;background:#efe9de;"><div style="background:#ddd9cf;">${img(detail,'Detalhe do produto')}</div><div style="padding:28px;display:flex;flex-direction:column;justify-content:center;"><span style="font-size:10px;letter-spacing:.14em;font-weight:700;color:#314b2f;margin-bottom:10px;">SIMPLIVILLA</span><h3 style="margin:0;font-family:Georgia,serif;font-size:30px;line-height:1.1;font-weight:500;">Pequenos cuidados.<br>Mais tempo para o que importa.</h3></div></div></section></div>`.trim()}function ensureColumn(n){if(!state.headers.includes(n))state.headers.push(n)}
-function exportCsv(){if(!state.products.length)return alert('Importe um CSV primeiro.');if($('aCopy').checked){let pending=state.products.filter(p=>!p.reviewed);if(pending.length){let names=pending.slice(0,5).map(p=>p.shortTitle||p.title).join('\n• '),more=pending.length>5?`\n... e mais ${pending.length-5}`:'';if(!confirm(`Há ${pending.length} produto(s) com a copy ainda não marcada como revisada:\n\n• ${names}${more}\n\nDeseja exportar mesmo assim?`))return;}}if($('aPrice').checked)ensureColumn('Variant Price');if($('aTitle').checked)ensureColumn('Title');if($('aTags').checked)ensureColumn('Tags');if($('aCopy').checked&&S.bodyWrite==='yes')ensureColumn('Body (HTML)');if(S.status)ensureColumn('Status');let by=new Map(state.products.map(p=>[p.handle,p])),first=new Map();state.rows.forEach((r,i)=>{let h=String(pick(r,['Handle'])||'');if(!first.has(h))first.set(h,i)});let rows=state.rows.map((r,i)=>{let o={...r},h=String(pick(r,['Handle'])||''),p=by.get(h);if(!p)return o;let f=first.get(h)===i;if($('aPrice').checked)o['Variant Price']=calc(p).price.toFixed(2);if(f&&$('aTitle').checked)o['Title']=p.shortTitle;if(f&&$('aTags').checked)o['Tags']=p.tags;if(f&&$('aCopy').checked&&S.bodyWrite==='yes')o['Body (HTML)']=bodyHtml(p);if(S.status)o['Status']=S.status;return o});let csv=Papa.unparse(rows,{columns:state.headers}),blob=new Blob(["\uFEFF"+csv],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='simplivilla-shopify-v3.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500)}
-function demo(){state.rows=[{'Handle':'limpador-persianas','Title':'Escova de limpeza de janela de persianas','Variant SKU':'SV001','Variant Price':'0','Cost per item':'18.50','Image Src':'https://cdn.shopify.com/s/files/1/0993/5788/4732/files/A61340f302f544b019da6d6ee70af14dc6.avif?v=1788440533','Tags':'','Body (HTML)':'','Status':'draft'},{'Handle':'limpador-persianas','Title':'','Variant SKU':'','Variant Price':'','Cost per item':'','Image Src':'https://cdn.shopify.com/s/files/1/0993/5788/4732/files/Ada6e28a74f0c4031862e6763d1a26ab1D_jpg_960x960q75_jpg.avif?v=1788439452','Tags':'','Body (HTML)':'','Status':''},{'Handle':'ultra-black','Title':'Pastilha de Proteção Ultra-Black','Variant SKU':'SV002','Variant Price':'0','Cost per item':'24.90','Image Src':'https://cdn.shopify.com/s/files/1/0993/5788/4732/files/A1185d30de24742dda686b326835be5766.avif?v=1788445206','Tags':'','Body (HTML)':'','Status':'draft'}];state.headers=Object.keys(state.rows[0]);state.products=group(state.rows);renderProducts();renderStats();renderSelect()}
-document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));$('view-'+b.dataset.view).classList.add('active');if(b.dataset.view==='copy')renderPreview();if(b.dataset.view==='media')renderMediaManager()});
-$('file').onchange=e=>e.target.files[0]&&handle(e.target.files[0]);$('process').onclick=process;$('export').onclick=exportCsv;$('demo').onclick=demo;$('search').oninput=renderProducts;$('productSelect').onchange=renderPreview;$('mediaProductSelect').onchange=renderMediaManager;$('addCost').onclick=()=>{S.costs.push({id:'c'+Date.now(),name:'Novo custo',type:'fixed',value:0,active:true});sync()};$('markup').onchange=()=>{S.markup=Number($('markup').value);sync()};$('round').onchange=()=>{S.round=$('round').value;sync()};$('brand').onchange=()=>{S.brand=$('brand').value;save()};$('eyebrow').onchange=()=>{S.eyebrow=$('eyebrow').value;save();renderPreview()};$('status').onchange=()=>{S.status=$('status').value;save()};$('bodyWrite').onchange=()=>{S.bodyWrite=$('bodyWrite').value;save()};
-['cTitle','cDesc','cBenefits','cFeatureTitle','cFeatureText','cUsage','cProblem','cDetails','cCare','cFaq'].forEach(id=>$(id).onchange=()=>{let p=selected();if(!p)return;p.copy.title=$('cTitle').value;p.copy.desc=$('cDesc').value;p.copy.benefits=$('cBenefits').value.split('\n').map(x=>x.trim()).filter(Boolean);p.copy.featureTitle=$('cFeatureTitle').value;p.copy.featureText=$('cFeatureText').value;p.copy.usage=$('cUsage').value.split('\n').map(x=>x.trim()).filter(Boolean);p.copy.problem=$('cProblem').value;p.copy.details=$('cDetails').value;p.copy.care=$('cCare').value;p.copy.faq=$('cFaq').value.split('\n').map(x=>x.trim()).filter(Boolean).map(line=>{let parts=line.split('|');return [String(parts.shift()||'').trim(),String(parts.join('|')||'').trim()]}).filter(item=>item[0]||item[1]);persistProduct(p);renderPreview()});
-$('video').onchange=()=>{let p=selected();if(!p)return;p.video=$('video').value.trim();activeMedia[p.handle]=0;persistProduct(p);renderPreview()};
-$('copyReviewed').onchange=()=>{let p=selected();if(!p)return;p.reviewed=$('copyReviewed').checked;persistProduct(p)};renderCosts();renderProducts();renderStats();renderSelect();
-</script>
+  <div id="root"></div>
+  <div id="boot-error"><h1>O sistema encontrou um erro ao iniciar.</h1><p>Copie a mensagem abaixo e me envie.</p><pre>Erro desconhecido.</pre></div>
+  <script>
+    window.addEventListener('error', function(event) {
+      var box=document.getElementById('boot-error'); if(!box) return;
+      box.style.display='block';
+      box.querySelector('pre').textContent=(event.message||'Erro ao iniciar')+(event.filename?'\n'+event.filename+':'+event.lineno:'');
+    });
+    window.addEventListener('unhandledrejection', function(event) {
+      var box=document.getElementById('boot-error'); if(!box) return;
+      box.style.display='block';
+      box.querySelector('pre').textContent=String(event.reason && (event.reason.stack||event.reason.message) || event.reason || 'Erro ao iniciar');
+    });
+
+    if (!window.React || !window.ReactDOM || !window.LucideReact) {
+      var box=document.getElementById('boot-error');
+      box.style.display='block';
+      box.querySelector('pre').textContent='Falha ao carregar React/ReactDOM/LucideReact. Verifique a conexão com a internet ou bloqueio de CDN.';
+    } else {
+const { useState, useEffect, useRef, useMemo } = React;
+const { PlusCircle, History, Users, UserSquare, Settings, Download, Upload, PieChart, TrendingUp, Search, Calendar, Printer, FileText, Trash2, Edit, Save, CheckCircle, AlertTriangle, Menu, Church } = LucideReact;
+// ==========================================
+// BANCO DE DADOS LOCAL (localStorage)
+// ==========================================
+const STORAGE_PREFIX = 'DizimosAssembleiaDB_';
+const readStore = (storeName) => {
+    try {
+        const raw = localStorage.getItem(STORAGE_PREFIX + storeName);
+        if (!raw)
+            return [];
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+    }
+    catch (error) {
+        console.error(`Erro ao ler ${storeName}:`, error);
+        return [];
+    }
+};
+const writeStore = (storeName, items) => {
+    localStorage.setItem(STORAGE_PREFIX + storeName, JSON.stringify(items));
+};
+const dbOp = async (storeName, operation, data = null) => {
+    const items = readStore(storeName);
+    if (operation === 'getAll' || operation === 'get')
+        return items;
+    if (operation === 'put') {
+        const index = items.findIndex((item) => item.id === data.id);
+        if (index >= 0)
+            items[index] = data;
+        else
+            items.push(data);
+        writeStore(storeName, items);
+        return data;
+    }
+    if (operation === 'delete') {
+        writeStore(storeName, items.filter((item) => item.id !== data));
+        return undefined;
+    }
+    if (operation === 'clear') {
+        writeStore(storeName, []);
+        return undefined;
+    }
+    return items;
+};
+// ==========================================
+// UTILITÁRIOS
+// ==========================================
+const formatCurrency = (value) => {
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+};
+const parseCurrency = (valueString) => {
+    const onlyNumbers = valueString.replace(/\D/g, '');
+    return Number(onlyNumbers) / 100;
+};
+const formatDate = (dateString) => {
+    const [year, month, day] = dateString.split('-');
+    return `${day}/${month}/${year}`;
+};
+const generateId = () => Date.now().toString(36) + Math.random().toString(36).substr(2);
+// ==========================================
+// COMPONENTES PRINCIPAIS
+// ==========================================
+function App() {
+    const [activeTab, setActiveTab] = useState('lancamento');
+    const [data, setData] = useState({
+        tithes: [],
+        members: [],
+        secretaries: [],
+        churches: [],
+        settings: { id: 'main', churchName: 'Assembleia de Deus - Irineópolis', primaryColor: '#FF7A00', lastBackup: null }
+    });
+    const [isLoading, setIsLoading] = useState(true);
+    const [toast, setToast] = useState(null);
+    const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [isPrintingReport, setIsPrintingReport] = useState(false);
+    // Carregar dados iniciais
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const tithes = await dbOp('tithes', 'getAll');
+                const members = await dbOp('members', 'getAll');
+                const secretaries = await dbOp('secretaries', 'getAll');
+                const churches = await dbOp('churches', 'getAll').catch(() => []);
+                const settingsArr = await dbOp('settings', 'getAll');
+                let settings = settingsArr.length > 0 ? settingsArr[0] : { id: 'main', churchName: 'Assembleia de Deus - Irineópolis', primaryColor: '#FF7A00', lastBackup: null };
+                // Ordenação padrão: mais recente primeiro
+                tithes.sort((a, b) => b.timestamp - a.timestamp);
+                members.sort((a, b) => a.name.localeCompare(b.name));
+                secretaries.sort((a, b) => a.name.localeCompare(b.name));
+                churches.sort((a, b) => a.name.localeCompare(b.name));
+                setData((prev) => ({ ...prev, tithes, members, secretaries, churches, settings }));
+            }
+            catch (error) {
+                console.error("Erro ao carregar dados:", error);
+            }
+            finally {
+                setIsLoading(false);
+            }
+        };
+        loadData();
+    }, []);
+    // Verificar backup antigo
+    useEffect(() => {
+        if (data.settings.lastBackup) {
+            const daysSinceBackup = (Date.now() - data.settings.lastBackup) / (1000 * 60 * 60 * 24);
+            if (daysSinceBackup > 30) {
+                showToast("Atenção: Seu último backup tem mais de 30 dias. Recomendamos realizar um novo backup.", 'warning');
+            }
+        }
+        else if (!isLoading && data.tithes.length > 0) {
+            showToast("Atenção: Você ainda não realizou nenhum backup do sistema.", 'warning');
+        }
+    }, [isLoading, data.settings.lastBackup, data.tithes.length]);
+    const showToast = (message, type = 'success') => {
+        setToast({ message, type });
+        setTimeout(() => setToast(null), 3000);
+    };
+    const saveData = async (type, item, operation = 'put') => {
+        try {
+            if (operation === 'delete') {
+                await dbOp(type, 'delete', item.id);
+                setData(prev => ({ ...prev, [type]: prev[type].filter((i) => i.id !== item.id) }));
+            }
+            else {
+                await dbOp(type, 'put', item);
+                setData(prev => {
+                    const typeKey = type;
+                    const exists = prev[typeKey].find((i) => i.id === item.id);
+                    let newData = exists
+                        ? prev[typeKey].map((i) => i.id === item.id ? item : i)
+                        : [...prev[typeKey], item];
+                    if (type === 'tithes')
+                        newData.sort((a, b) => b.timestamp - a.timestamp);
+                    if (type === 'members' || type === 'secretaries' || type === 'churches')
+                        newData.sort((a, b) => a.name.localeCompare(b.name));
+                    return { ...prev, [type]: newData };
+                });
+            }
+        }
+        catch (error) {
+            console.error("Erro ao salvar:", error);
+            showToast("Erro ao salvar os dados.", 'error');
+        }
+    };
+    if (isLoading)
+        return React.createElement("div", { className: "min-h-screen flex items-center justify-center bg-gray-50" },
+            React.createElement("div", { className: "animate-spin rounded-full h-12 w-12 border-t-2 border-b-2", style: { borderColor: '#FF7A00' } }));
+    if (isPrintingReport) {
+        return React.createElement(DetailedReport, { data: data, onDone: () => setIsPrintingReport(false) });
+    }
+    const CSS_VARS = { '--primary': data.settings.primaryColor };
+    return (React.createElement("div", { className: "min-h-screen bg-gray-100 flex flex-col md:flex-row font-sans", style: CSS_VARS },
+        toast && (React.createElement("div", { className: `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 transform transition-all duration-300 translate-y-0 opacity-100
+          ${toast.type === 'success' ? 'bg-green-100 text-green-800 border-l-4 border-green-500' :
+                toast.type === 'warning' ? 'bg-yellow-100 text-yellow-800 border-l-4 border-yellow-500' :
+                    'bg-red-100 text-red-800 border-l-4 border-red-500'}` },
+            toast.type === 'success' ? React.createElement(CheckCircle, { size: 20 }) : React.createElement(AlertTriangle, { size: 20 }),
+            React.createElement("span", { className: "font-medium" }, toast.message))),
+        React.createElement("aside", { className: `bg-white shadow-xl flex flex-col transition-all duration-300 z-40 fixed md:relative h-full
+        ${sidebarOpen ? 'w-64 translate-x-0' : '-translate-x-full md:translate-x-0 md:w-20'}` },
+            React.createElement("div", { className: "h-20 flex items-center justify-between px-4 border-b" },
+                (sidebarOpen || (typeof window !== 'undefined' && window.innerWidth < 768)) && (React.createElement("h1", { className: "font-bold text-gray-800 leading-tight flex-1 truncate pr-2" }, data.settings.churchName)),
+                React.createElement("button", { onClick: () => setSidebarOpen(!sidebarOpen), className: "p-2 rounded-lg hover:bg-gray-100 text-gray-500 hidden md:block" },
+                    React.createElement(Menu, { size: 20 }))),
+            React.createElement("div", { className: "flex-1 overflow-y-auto py-4" },
+                React.createElement(NavItem, { icon: React.createElement(PlusCircle, null), label: "Lan\u00E7amento", active: activeTab === 'lancamento', onClick: () => { setActiveTab('lancamento'); if (typeof window !== 'undefined' && window.innerWidth < 768)
+                        setSidebarOpen(false); }, open: sidebarOpen }),
+                React.createElement(NavItem, { icon: React.createElement(PieChart, null), label: "Dashboard", active: activeTab === 'dashboard', onClick: () => { setActiveTab('dashboard'); if (typeof window !== 'undefined' && window.innerWidth < 768)
+                        setSidebarOpen(false); }, open: sidebarOpen }),
+                React.createElement(NavItem, { icon: React.createElement(History, null), label: "Hist\u00F3rico", active: activeTab === 'history', onClick: () => { setActiveTab('history'); if (typeof window !== 'undefined' && window.innerWidth < 768)
+                        setSidebarOpen(false); }, open: sidebarOpen }),
+                React.createElement("div", { className: "my-2 border-t border-gray-100 mx-4" }),
+                React.createElement(NavItem, { icon: React.createElement(Users, null), label: "Membros", active: activeTab === 'members', onClick: () => { setActiveTab('members'); if (typeof window !== 'undefined' && window.innerWidth < 768)
+                        setSidebarOpen(false); }, open: sidebarOpen }),
+                React.createElement(NavItem, { icon: React.createElement(UserSquare, null), label: "Secret\u00E1rios", active: activeTab === 'secretaries', onClick: () => { setActiveTab('secretaries'); if (typeof window !== 'undefined' && window.innerWidth < 768)
+                        setSidebarOpen(false); }, open: sidebarOpen }),
+                React.createElement(NavItem, { icon: React.createElement(Church, null), label: "Igrejas", active: activeTab === 'churches', onClick: () => { setActiveTab('churches'); if (typeof window !== 'undefined' && window.innerWidth < 768)
+                        setSidebarOpen(false); }, open: sidebarOpen }),
+                React.createElement("div", { className: "my-2 border-t border-gray-100 mx-4" }),
+                React.createElement(NavItem, { icon: React.createElement(Save, null), label: "Backup", active: activeTab === 'backup', onClick: () => { setActiveTab('backup'); if (typeof window !== 'undefined' && window.innerWidth < 768)
+                        setSidebarOpen(false); }, open: sidebarOpen }),
+                React.createElement(NavItem, { icon: React.createElement(Settings, null), label: "Configura\u00E7\u00F5es", active: activeTab === 'settings', onClick: () => { setActiveTab('settings'); if (typeof window !== 'undefined' && window.innerWidth < 768)
+                        setSidebarOpen(false); }, open: sidebarOpen }))),
+        React.createElement("main", { className: "flex-1 flex flex-col h-screen overflow-hidden" },
+            React.createElement("div", { className: "md:hidden h-16 bg-white shadow-sm flex items-center px-4 border-b shrink-0 z-30" },
+                React.createElement("button", { onClick: () => setSidebarOpen(!sidebarOpen), className: "p-2 -ml-2 text-gray-600" },
+                    React.createElement(Menu, { size: 24 })),
+                React.createElement("h1", { className: "font-bold text-gray-800 ml-2 truncate" }, data.settings.churchName)),
+            React.createElement("div", { className: "flex-1 overflow-y-auto p-4 md:p-8 bg-gray-50/50" },
+                activeTab === 'lancamento' && React.createElement(LaunchScreen, { data: data, saveData: saveData, showToast: showToast }),
+                activeTab === 'dashboard' && React.createElement(DashboardScreen, { data: data }),
+                activeTab === 'history' && React.createElement(HistoryScreen, { data: data, saveData: saveData, showToast: showToast }),
+                activeTab === 'members' && React.createElement(CRUDScreen, { type: "members", title: "Membros", data: data, saveData: saveData, showToast: showToast }),
+                activeTab === 'secretaries' && React.createElement(CRUDScreen, { type: "secretaries", title: "Secret\u00E1rios", data: data, saveData: saveData, showToast: showToast }),
+                activeTab === 'churches' && React.createElement(CRUDScreen, { type: "churches", title: "Igrejas / Congrega\u00E7\u00F5es", data: data, saveData: saveData, showToast: showToast }),
+                activeTab === 'backup' && React.createElement(BackupScreen, { data: data, setData: setData, showToast: showToast, dbOp: dbOp, onPrintReport: () => setIsPrintingReport(true) }),
+                activeTab === 'settings' && React.createElement(SettingsScreen, { data: data, saveData: saveData, showToast: showToast }))),
+        sidebarOpen && typeof window !== 'undefined' && window.innerWidth < 768 && (React.createElement("div", { className: "fixed inset-0 bg-black/50 z-30 md:hidden", onClick: () => setSidebarOpen(false) }))));
+}
+// ==========================================
+// SUBCOMPONENTES
+// ==========================================
+const NavItem = ({ icon, label, active, onClick, open }) => (React.createElement("button", { onClick: onClick, className: `w-full flex items-center px-4 py-3 mb-1 transition-colors relative group
+      ${active ? 'bg-orange-50 text-orange-600 border-r-4 border-orange-500' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}`, style: active ? { backgroundColor: 'var(--primary)15', color: 'var(--primary)', borderColor: 'var(--primary)' } : {} },
+    React.createElement("div", { className: "flex items-center justify-center w-6 h-6 mr-3" }, icon),
+    (open || (typeof window !== 'undefined' && window.innerWidth < 768)) && React.createElement("span", { className: "font-medium whitespace-nowrap" }, label),
+    !open && typeof window !== 'undefined' && window.innerWidth >= 768 && (React.createElement("div", { className: "absolute left-16 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50" }, label))));
+// --- TELA DE LANÇAMENTO ---
+const LaunchScreen = ({ data, saveData, showToast }) => {
+    const [memberText, setMemberText] = useState('');
+    const [secretaryText, setSecretaryText] = useState('');
+    const [churchText, setChurchText] = useState('');
+    const [valueStr, setValueStr] = useState('');
+    const [observation, setObservation] = useState('');
+    const [selectedMember, setSelectedMember] = useState(null);
+    const [selectedSecretary, setSelectedSecretary] = useState(null);
+    const [selectedChurch, setSelectedChurch] = useState(null);
+    const [filterDate, setFilterDate] = useState(new Date().toISOString().split('T')[0]);
+    const memberInputRef = useRef(null);
+    const handleAddMember = async (name) => {
+        const newMember = { id: generateId(), name, createdAt: Date.now() };
+        await saveData('members', newMember);
+        setSelectedMember(newMember);
+        setMemberText(name);
+        showToast(`Membro "${name}" salvo com sucesso!`);
+    };
+    const handleAddSecretary = async (name) => {
+        const newSec = { id: generateId(), name, createdAt: Date.now() };
+        await saveData('secretaries', newSec);
+        setSelectedSecretary(newSec);
+        setSecretaryText(name);
+        showToast(`Secretário(a) "${name}" salvo(a) com sucesso!`);
+    };
+    const handleAddChurch = async (name) => {
+        const newChurch = { id: generateId(), name, createdAt: Date.now() };
+        await saveData('churches', newChurch);
+        setSelectedChurch(newChurch);
+        setChurchText(name);
+        showToast(`Igreja "${name}" salva com sucesso!`);
+    };
+    // Atalhos de teclado
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'F2') {
+                e.preventDefault();
+                memberInputRef.current?.focus();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+    const handleValueChange = (e) => {
+        const val = parseCurrency(e.target.value);
+        setValueStr(val === 0 ? '' : formatCurrency(val));
+    };
+    const handleSave = async () => {
+        if (!selectedMember || !selectedSecretary || !valueStr) {
+            showToast('Preencha todos os campos obrigatórios.', 'error');
+            return;
+        }
+        const value = parseCurrency(valueStr);
+        const now = new Date();
+        const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+        const tithe = {
+            id: generateId(),
+            date: filterDate,
+            time,
+            timestamp: Date.now(),
+            memberName: selectedMember.name,
+            memberId: selectedMember.id,
+            secretaryName: selectedSecretary.name,
+            secretaryId: selectedSecretary.id,
+            churchName: selectedChurch?.name || '',
+            churchId: selectedChurch?.id || null,
+            value,
+            observation
+        };
+        await saveData('tithes', tithe);
+        showToast(`Dízimo de ${formatCurrency(value)} registrado com sucesso!`);
+        // Reset form
+        setValueStr('');
+        setObservation('');
+        setMemberText('');
+        setSelectedMember(null);
+        memberInputRef.current?.focus();
+    };
+    const todaysTithes = data.tithes.filter((t) => t.date === filterDate);
+    const todayTotal = todaysTithes.reduce((a, b) => a + b.value, 0);
+    return (React.createElement("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-6" },
+        React.createElement("div", { className: "lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-6 space-y-4" },
+            React.createElement("h2", { className: "text-2xl font-bold text-gray-800 mb-6" }, "Novo Lan\u00E7amento"),
+            React.createElement("div", null,
+                React.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Data"),
+                React.createElement("input", { type: "date", value: filterDate, onChange: (e) => setFilterDate(e.target.value), className: "w-full border border-gray-300 rounded-lg p-3 text-gray-800 focus:border-orange-500 outline-none" })),
+            React.createElement("div", null,
+                React.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Membro (F2)"),
+                React.createElement(Autocomplete, { items: data.members, value: memberText, onChange: setMemberText, onSelect: setSelectedMember, onAdd: handleAddMember, placeholder: "Digite o nome do membro...", inputRef: memberInputRef })),
+            React.createElement("div", null,
+                React.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Secret\u00E1rio(a)"),
+                React.createElement(Autocomplete, { items: data.secretaries, value: secretaryText, onChange: setSecretaryText, onSelect: setSelectedSecretary, onAdd: handleAddSecretary, placeholder: "Digite o nome do secret\u00E1rio..." })),
+            React.createElement("div", null,
+                React.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Igreja / Congrega\u00E7\u00E3o (Opcional)"),
+                React.createElement(Autocomplete, { items: data.churches, value: churchText, onChange: setChurchText, onSelect: setSelectedChurch, onAdd: handleAddChurch, placeholder: "Digite o nome da igreja..." })),
+            React.createElement("div", null,
+                React.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Valor"),
+                React.createElement("input", { type: "text", value: valueStr, onChange: handleValueChange, placeholder: "R$ 0,00", className: "w-full border border-gray-300 rounded-lg p-3 text-gray-800 focus:border-orange-500 outline-none text-lg font-bold" })),
+            React.createElement("div", null,
+                React.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Observa\u00E7\u00E3o (Opcional)"),
+                React.createElement("textarea", { value: observation, onChange: (e) => setObservation(e.target.value), placeholder: "Ex: D\u00EDzimo especial, oferta...", className: "w-full border border-gray-300 rounded-lg p-3 text-gray-800 focus:border-orange-500 outline-none resize-none h-20" })),
+            React.createElement("button", { onClick: handleSave, className: "w-full py-4 font-bold text-white rounded-xl shadow-md transition-all hover:-translate-y-0.5", style: { backgroundColor: 'var(--primary)' } },
+                React.createElement(PlusCircle, { size: 20, className: "inline mr-2" }),
+                " Registrar Lan\u00E7amento")),
+        React.createElement("div", { className: "bg-white rounded-2xl shadow-sm border border-gray-100 p-6 h-fit" },
+            React.createElement("h3", { className: "text-lg font-bold text-gray-800 mb-4" }, "Resumo do Dia"),
+            React.createElement("div", { className: "space-y-4" },
+                React.createElement("div", { className: "text-center p-4 rounded-lg", style: { backgroundColor: 'var(--primary)15' } },
+                    React.createElement("div", { className: "text-sm text-gray-600 mb-1" }, "Total Arrecadado"),
+                    React.createElement("div", { className: "text-3xl font-bold", style: { color: 'var(--primary)' } }, formatCurrency(todayTotal))),
+                React.createElement("div", { className: "text-center p-4 bg-gray-50 rounded-lg" },
+                    React.createElement("div", { className: "text-sm text-gray-600 mb-1" }, "Lan\u00E7amentos"),
+                    React.createElement("div", { className: "text-3xl font-bold text-gray-800" }, todaysTithes.length)),
+                React.createElement("div", { className: "border-t border-gray-100 pt-4" },
+                    React.createElement("h4", { className: "font-bold text-gray-800 mb-3 text-sm" }, "\u00DAltimos Lan\u00E7amentos"),
+                    React.createElement("div", { className: "space-y-3 max-h-96 overflow-y-auto" }, todaysTithes.map((tithe) => (React.createElement("div", { key: tithe.id, className: "p-3 bg-gray-50 rounded-lg border border-gray-100" },
+                        React.createElement("div", { className: "flex flex-col" },
+                            React.createElement("span", { className: "font-bold text-gray-800" }, tithe.memberName),
+                            React.createElement("div", { className: "flex items-center text-xs text-gray-500 mt-1 gap-2" },
+                                React.createElement("span", { className: "flex items-center gap-1" },
+                                    React.createElement(UserSquare, { size: 12 }),
+                                    " ",
+                                    tithe.secretaryName),
+                                React.createElement("span", null, "\u2022"),
+                                React.createElement("span", { className: "flex items-center gap-1" },
+                                    React.createElement(Church, { size: 12 }),
+                                    " ",
+                                    tithe.churchName || 'N/A'),
+                                React.createElement("span", null, "\u2022"),
+                                React.createElement("span", { className: "flex items-center gap-1" },
+                                    React.createElement(Calendar, { size: 12 }),
+                                    " ",
+                                    tithe.time)),
+                            tithe.observation && (React.createElement("p", { className: "text-xs text-gray-500 mt-2 italic border-l-2 pl-2 border-gray-300" },
+                                "\"",
+                                tithe.observation,
+                                "\""))),
+                        React.createElement("div", { className: "mt-2 sm:mt-0 text-right" },
+                            React.createElement("span", { className: "text-lg font-bold text-gray-900" }, formatCurrency(tithe.value))))))))))));
+};
+// Componente Autocomplete Customizado
+const Autocomplete = ({ items, value, onChange, onSelect, onAdd, placeholder, inputRef }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const filteredItems = useMemo(() => {
+        if (!value)
+            return items.slice(0, 5); // Mostra primeiros 5 se vazio
+        const lowerVal = value.toLowerCase();
+        return items.filter((i) => i.name.toLowerCase().includes(lowerVal)).slice(0, 10);
+    }, [items, value]);
+    const exactMatch = items.find((i) => i.name.toLowerCase() === value.trim().toLowerCase());
+    return (React.createElement("div", { className: "relative" },
+        React.createElement("input", { ref: inputRef, type: "text", value: value, onChange: (e) => {
+                onChange(e.target.value);
+                onSelect(null); // Reseta a seleção se digitar
+                setIsOpen(true);
+            }, onFocus: () => setIsOpen(true), onBlur: () => setTimeout(() => setIsOpen(false), 200), placeholder: placeholder, className: "w-full border border-gray-300 rounded-lg p-3 text-gray-800 focus:border-orange-500 outline-none transition-colors" }),
+        isOpen && (React.createElement("div", { className: "absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-xl max-h-60 overflow-y-auto" },
+            filteredItems.map((item) => (React.createElement("div", { key: item.id, onMouseDown: (e) => { e.preventDefault(); onChange(item.name); onSelect(item); setIsOpen(false); }, className: "px-4 py-3 hover:bg-gray-50 cursor-pointer text-sm text-gray-700 border-b border-gray-50 last:border-0" }, item.name))),
+            value.trim() !== '' && !exactMatch && (React.createElement("div", { onMouseDown: (e) => {
+                    e.preventDefault();
+                    if (onAdd)
+                        onAdd(value.trim());
+                    setIsOpen(false);
+                }, className: "px-4 py-3 bg-orange-50 text-orange-700 cursor-pointer text-sm font-medium flex items-center gap-2", style: { color: 'var(--primary)', backgroundColor: 'var(--primary)15' } },
+                React.createElement(PlusCircle, { size: 16 }),
+                " Adicionar \"",
+                value,
+                "\"")),
+            filteredItems.length === 0 && value.trim() === '' && (React.createElement("div", { className: "px-4 py-3 text-sm text-gray-400 text-center italic" }, "Digite para pesquisar..."))))));
+};
+// --- TELA DE DASHBOARD ---
+const DashboardScreen = ({ data }) => {
+    const today = new Date().toISOString().split('T')[0];
+    const todaysTithes = data.tithes.filter((t) => t.date === today);
+    const todayTotal = todaysTithes.reduce((a, b) => a + b.value, 0);
+    const generalTotal = data.tithes.reduce((a, b) => a + b.value, 0);
+    const maxToday = todaysTithes.length > 0 ? Math.max(...todaysTithes.map((t) => t.value)) : 0;
+    const lastTithe = data.tithes.length > 0 ? data.tithes[0] : null;
+    // Preparar dados para o gráfico de barras (Últimos 7 dias)
+    const last7Days = Array.from({ length: 7 }, (_, i) => {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        return d.toISOString().split('T')[0];
+    }).reverse();
+    const chartData = last7Days.map(date => {
+        const total = data.tithes.filter((t) => t.date === date).reduce((a, b) => a + b.value, 0);
+        return { date, total, label: date.split('-')[2] + '/' + date.split('-')[1] };
+    });
+    const maxChartVal = Math.max(...chartData.map(d => d.total), 1); // Evitar div por 0
+    // Dados para Gráfico de Pizza (Secretários top 5)
+    const secTotals = {};
+    data.tithes.forEach((t) => {
+        secTotals[t.secretaryName] = (secTotals[t.secretaryName] || 0) + 1;
+    });
+    const secChartData = Object.entries(secTotals)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map((item, i) => ({ name: item[0], count: item[1], color: ['#FF7A00', '#FF9B3D', '#FFB870', '#FFD2A3', '#FFEBD6'][i] }));
+    return (React.createElement("div", { className: "space-y-6" },
+        React.createElement("h2", { className: "text-2xl font-bold text-gray-800" }, "Vis\u00E3o Geral"),
+        React.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" },
+            React.createElement(DashCard, { title: "Arrecadado Hoje", value: formatCurrency(todayTotal), subtitle: `${todaysTithes.length} lançamentos`, icon: React.createElement(TrendingUp, { size: 24, className: "text-orange-500", style: { color: 'var(--primary)' } }) }),
+            React.createElement(DashCard, { title: "Maior D\u00EDzimo (Hoje)", value: formatCurrency(maxToday), subtitle: "Maior valor do dia", icon: React.createElement(TrendingUp, { size: 24, className: "text-green-500" }) }),
+            React.createElement(DashCard, { title: "Total Geral Hist\u00F3rico", value: formatCurrency(generalTotal), subtitle: `${data.tithes.length} registros no total`, icon: React.createElement(PieChart, { size: 24, className: "text-blue-500" }), bg: "bg-gray-900 text-white", textClass: "text-white", subClass: "text-gray-400" }),
+            React.createElement("div", { className: "bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex flex-col justify-between" },
+                React.createElement("div", { className: "text-sm font-medium text-gray-500 mb-2" }, "\u00DAltimo Lan\u00E7amento"),
+                lastTithe ? (React.createElement("div", null,
+                    React.createElement("div", { className: "font-bold text-gray-800 text-lg truncate" }, lastTithe.memberName),
+                    React.createElement("div", { className: "text-xl font-bold", style: { color: 'var(--primary)' } }, formatCurrency(lastTithe.value)),
+                    React.createElement("div", { className: "text-xs text-gray-400 mt-1" },
+                        formatDate(lastTithe.date),
+                        " \u00E0s ",
+                        lastTithe.time))) : (React.createElement("div", { className: "text-gray-400 italic" }, "Nenhum registro")))),
+        React.createElement("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-6" },
+            React.createElement("div", { className: "bg-white rounded-2xl p-6 shadow-sm border border-gray-100 lg:col-span-2" },
+                React.createElement("h3", { className: "text-lg font-bold text-gray-800 mb-6" }, "Arrecada\u00E7\u00E3o dos \u00DAltimos 7 Dias"),
+                React.createElement("div", { className: "h-64 flex items-end justify-between gap-2 pt-4" }, chartData.map((d, i) => {
+                    const heightPct = (d.total / maxChartVal) * 100;
+                    return (React.createElement("div", { key: i, className: "flex flex-col items-center flex-1 group relative" },
+                        React.createElement("div", { className: "absolute -top-10 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-800 text-white text-xs py-1 px-2 rounded pointer-events-none whitespace-nowrap z-10" }, formatCurrency(d.total)),
+                        React.createElement("div", { className: "w-full max-w-[40px] bg-orange-100 rounded-t-sm relative flex items-end justify-center", style: { height: '100%' } },
+                            React.createElement("div", { className: "w-full rounded-t-sm transition-all duration-500 hover:opacity-80", style: { height: `${heightPct}%`, backgroundColor: 'var(--primary)' } })),
+                        React.createElement("span", { className: "text-xs text-gray-500 mt-2" }, d.label)));
+                }))),
+            React.createElement("div", { className: "bg-white rounded-2xl p-6 shadow-sm border border-gray-100" },
+                React.createElement("h3", { className: "text-lg font-bold text-gray-800 mb-6" }, "Top Secret\u00E1rios (Qtd.)"),
+                React.createElement("div", { className: "space-y-4" },
+                    secChartData.length === 0 ? React.createElement("p", { className: "text-gray-400 text-sm" }, "Sem dados suficientes.") : null,
+                    secChartData.map((sec, i) => (React.createElement("div", { key: i, className: "flex items-center gap-3" },
+                        React.createElement("div", { className: "w-12 text-sm font-bold text-right" },
+                            sec.count,
+                            "x"),
+                        React.createElement("div", { className: "flex-1 bg-gray-100 h-3 rounded-full overflow-hidden" },
+                            React.createElement("div", { className: "h-full rounded-full", style: { width: `${(sec.count / secChartData[0].count) * 100}%`, backgroundColor: sec.color } })),
+                        React.createElement("div", { className: "w-24 text-xs text-gray-600 truncate" }, sec.name)))))))));
+};
+const DashCard = ({ title, value, subtitle, icon, bg = "bg-white", textClass = "text-gray-800", subClass = "text-gray-500" }) => (React.createElement("div", { className: `${bg} rounded-2xl p-5 shadow-sm border border-gray-100 flex flex-col justify-between relative overflow-hidden` },
+    React.createElement("div", { className: "flex justify-between items-start mb-2 z-10" },
+        React.createElement("div", { className: `text-sm font-medium ${subClass}` }, title),
+        React.createElement("div", { className: "p-2 bg-gray-50/20 rounded-lg" }, icon)),
+    React.createElement("div", { className: `text-2xl sm:text-3xl font-bold tracking-tight mb-1 z-10 ${textClass}` }, value),
+    React.createElement("div", { className: `text-xs z-10 ${subClass}` }, subtitle)));
+// --- TELA DE HISTÓRICO GERAL ---
+const HistoryScreen = ({ data, saveData, showToast }) => {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [dateFilter, setDateFilter] = useState('');
+    const [itemsToShow, setItemsToShow] = useState(50);
+    const [editingItem, setEditingItem] = useState(null);
+    const [editValue, setEditValue] = useState('');
+    const [editChurch, setEditChurch] = useState('');
+    const [editObs, setEditObs] = useState('');
+    const filteredData = data.tithes.filter((t) => {
+        const matchSearch = t.memberName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            t.secretaryName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (t.churchName && t.churchName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+            t.value.toString().includes(searchTerm);
+        const matchDate = dateFilter ? t.date === dateFilter : true;
+        return matchSearch && matchDate;
+    });
+    const handleDelete = async (item) => {
+        if (window.confirm(`Tem certeza que deseja excluir o registro de ${item.memberName} no valor de ${formatCurrency(item.value)}?\nEsta ação não pode ser desfeita e afetará os totais.`)) {
+            await saveData('tithes', item, 'delete');
+            showToast('Registro excluído e arquivado com sucesso.');
+        }
+    };
+    const startEdit = (item) => {
+        setEditingItem(item);
+        setEditValue(formatCurrency(item.value));
+        setEditChurch(item.churchName || '');
+        setEditObs(item.observation || '');
+    };
+    const saveEdit = async () => {
+        const val = parseCurrency(editValue);
+        if (val <= 0)
+            return showToast('Valor inválido', 'error');
+        const updated = {
+            ...editingItem,
+            value: val,
+            churchName: editChurch,
+            observation: editObs,
+            updatedAt: Date.now(),
+            updateNote: 'Editado via Histórico'
+        };
+        await saveData('tithes', updated);
+        setEditingItem(null);
+        showToast('Registro atualizado.');
+    };
+    const exportCSV = () => {
+        const headers = ["ID", "Data", "Hora", "Membro", "Valor", "Secretário", "Igreja", "Observação"];
+        const rows = filteredData.map((t) => [
+            t.id, formatDate(t.date), t.time, `"${t.memberName}"`, t.value, `"${t.secretaryName}"`, `"${t.churchName || ''}"`, `"${t.observation || ''}"`
+        ]);
+        let csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `relatorio_dizimos_${new Date().getTime()}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+    const printReport = () => {
+        window.print();
+    };
+    return (React.createElement("div", { className: "bg-white rounded-2xl shadow-sm border border-gray-100 p-6 h-full flex flex-col print:shadow-none print:border-none print:p-0" },
+        React.createElement("div", { className: "flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4 print:hidden" },
+            React.createElement("h2", { className: "text-2xl font-bold text-gray-800" }, "Hist\u00F3rico Completo"),
+            React.createElement("div", { className: "flex gap-2" },
+                React.createElement("button", { onClick: exportCSV, className: "flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition-colors" },
+                    React.createElement(Download, { size: 16 }),
+                    " CSV"),
+                React.createElement("button", { onClick: printReport, className: "flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition-colors" },
+                    React.createElement(Printer, { size: 16 }),
+                    " Imprimir PDF"))),
+        React.createElement("div", { className: "hidden print:block mb-6 text-center" },
+            React.createElement("h1", { className: "text-2xl font-bold" }, data.settings.churchName),
+            React.createElement("h2", { className: "text-lg" }, "Relat\u00F3rio de D\u00EDzimos"),
+            React.createElement("p", { className: "text-sm text-gray-500" },
+                "Impresso em: ",
+                new Date().toLocaleString('pt-BR'))),
+        React.createElement("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 print:hidden" },
+            React.createElement("div", { className: "relative" },
+                React.createElement(Search, { size: 18, className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" }),
+                React.createElement("input", { type: "text", placeholder: "Pesquisar membro, secret\u00E1rio ou valor...", value: searchTerm, onChange: (e) => setSearchTerm(e.target.value), className: "w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:border-orange-500 outline-none text-sm" })),
+            React.createElement("div", { className: "relative" },
+                React.createElement(Calendar, { size: 18, className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" }),
+                React.createElement("input", { type: "date", value: dateFilter, onChange: (e) => setDateFilter(e.target.value), className: "w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:border-orange-500 outline-none text-sm" }))),
+        React.createElement("div", { className: "flex-1 overflow-y-auto" },
+            React.createElement("ul", { className: "space-y-2" },
+                filteredData.slice(0, itemsToShow).map((tithe) => (React.createElement("li", { key: tithe.id, className: "p-4 bg-gray-50 rounded-lg border border-gray-100 hover:border-orange-200 transition-colors print:border-gray-300 print:break-inside-avoid" }, editingItem?.id === tithe.id ? (React.createElement("div", { className: "space-y-3" },
+                    React.createElement("div", { className: "grid grid-cols-2 gap-2" },
+                        React.createElement("input", { type: "text", value: editValue, onChange: (e) => setEditValue(e.target.value), className: "border border-gray-300 rounded p-2 text-sm", placeholder: "Valor" }),
+                        React.createElement("input", { type: "text", value: editChurch, onChange: (e) => setEditChurch(e.target.value), className: "border border-gray-300 rounded p-2 text-sm", placeholder: "Igreja" })),
+                    React.createElement("textarea", { value: editObs, onChange: (e) => setEditObs(e.target.value), className: "w-full border border-gray-300 rounded p-2 text-sm resize-none h-16", placeholder: "Observa\u00E7\u00E3o" }),
+                    React.createElement("div", { className: "flex gap-2" },
+                        React.createElement("button", { onClick: saveEdit, className: "flex-1 bg-green-500 text-white py-2 rounded text-sm font-medium hover:bg-green-600" },
+                            React.createElement(Save, { size: 16, className: "inline mr-1" }),
+                            " Salvar"),
+                        React.createElement("button", { onClick: () => setEditingItem(null), className: "flex-1 bg-gray-300 text-gray-700 py-2 rounded text-sm font-medium hover:bg-gray-400" }, "Cancelar")))) : (React.createElement("div", { className: "flex justify-between items-start print:flex-col" },
+                    React.createElement("div", { className: "flex-1" },
+                        React.createElement("div", { className: "font-bold text-gray-800" }, tithe.memberName),
+                        React.createElement("div", { className: "text-xs text-gray-500 mt-1 space-y-0.5" },
+                            React.createElement("div", null,
+                                "\uD83D\uDCC5 ",
+                                formatDate(tithe.date),
+                                " \u00E0s ",
+                                tithe.time),
+                            React.createElement("div", null,
+                                "\uD83D\uDC64 ",
+                                tithe.secretaryName),
+                            tithe.churchName && React.createElement("div", null,
+                                "\u26EA ",
+                                tithe.churchName),
+                            tithe.observation && React.createElement("div", { className: "italic" },
+                                "\"",
+                                tithe.observation,
+                                "\""))),
+                    React.createElement("div", { className: "text-right ml-4 print:ml-0 print:mt-2" },
+                        React.createElement("div", { className: "text-lg font-bold text-gray-900" }, formatCurrency(tithe.value)),
+                        React.createElement("div", { className: "flex gap-2 mt-2 print:hidden" },
+                            React.createElement("button", { onClick: () => startEdit(tithe), className: "p-1 text-blue-600 hover:bg-blue-50 rounded" },
+                                React.createElement(Edit, { size: 16 })),
+                            React.createElement("button", { onClick: () => handleDelete(tithe), className: "p-1 text-red-600 hover:bg-red-50 rounded" },
+                                React.createElement(Trash2, { size: 16 }))))))))),
+                filteredData.length === 0 && (React.createElement("li", { className: "p-8 text-center text-gray-400" }, "Nenhum registro encontrado."))))));
+};
+// --- TELA DE CRUD (Membros, Secretários, Igrejas) ---
+const CRUDScreen = ({ type, title, data, saveData, showToast }) => {
+    const [newName, setNewName] = useState('');
+    const [editingId, setEditingId] = useState(null);
+    const [editName, setEditName] = useState('');
+    const items = data[type];
+    const handleAdd = async () => {
+        if (!newName.trim()) {
+            showToast('Digite um nome válido.', 'error');
+            return;
+        }
+        const newItem = { id: generateId(), name: newName.trim(), createdAt: Date.now() };
+        await saveData(type, newItem);
+        setNewName('');
+        showToast(`${title.slice(0, -1)} adicionado com sucesso!`);
+    };
+    const handleEdit = async (item) => {
+        if (!editName.trim()) {
+            showToast('Digite um nome válido.', 'error');
+            return;
+        }
+        const updated = { ...item, name: editName.trim() };
+        await saveData(type, updated);
+        setEditingId(null);
+        showToast(`${title.slice(0, -1)} atualizado com sucesso!`);
+    };
+    const handleDelete = async (item) => {
+        if (window.confirm(`Tem certeza que deseja excluir "${item.name}"?`)) {
+            await saveData(type, item, 'delete');
+            showToast(`${title.slice(0, -1)} removido com sucesso!`);
+        }
+    };
+    return (React.createElement("div", { className: "max-w-2xl mx-auto" },
+        React.createElement("h2", { className: "text-2xl font-bold text-gray-800 mb-6" }, title),
+        React.createElement("div", { className: "bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6" },
+            React.createElement("div", { className: "flex gap-2" },
+                React.createElement("input", { type: "text", value: newName, onChange: (e) => setNewName(e.target.value), onKeyPress: (e) => e.key === 'Enter' && handleAdd(), placeholder: `Digite o nome do novo ${title.toLowerCase().slice(0, -1)}...`, className: "flex-1 border border-gray-300 rounded-lg p-3 text-gray-800 focus:border-orange-500 outline-none" }),
+                React.createElement("button", { onClick: handleAdd, className: "px-6 py-3 font-bold text-white rounded-lg shadow-md transition-all hover:-translate-y-0.5", style: { backgroundColor: 'var(--primary)' } },
+                    React.createElement(PlusCircle, { size: 20, className: "inline mr-2" }),
+                    " Adicionar"))),
+        React.createElement("div", { className: "bg-white rounded-2xl shadow-sm border border-gray-100 p-6" },
+            React.createElement("ul", { className: "space-y-2" },
+                items.map((item) => (React.createElement("li", { key: item.id, className: "p-4 bg-gray-50 rounded-lg border border-gray-100 flex justify-between items-center hover:border-orange-200 transition-colors" }, editingId === item.id ? (React.createElement("div", { className: "flex-1 flex gap-2" },
+                    React.createElement("input", { type: "text", value: editName, onChange: (e) => setEditName(e.target.value), className: "flex-1 border border-gray-300 rounded p-2 text-sm", autoFocus: true }),
+                    React.createElement("button", { onClick: () => handleEdit(item), className: "px-3 py-2 bg-green-500 text-white rounded text-sm font-medium hover:bg-green-600" },
+                        React.createElement(Save, { size: 16 })),
+                    React.createElement("button", { onClick: () => setEditingId(null), className: "px-3 py-2 bg-gray-300 text-gray-700 rounded text-sm font-medium hover:bg-gray-400" }, "Cancelar"))) : (React.createElement(React.Fragment, null,
+                    React.createElement("span", { className: "font-medium text-gray-800" }, item.name),
+                    React.createElement("div", { className: "flex gap-2" },
+                        React.createElement("button", { onClick: () => { setEditingId(item.id); setEditName(item.name); }, className: "p-2 text-blue-600 hover:bg-blue-50 rounded transition-colors" },
+                            React.createElement(Edit, { size: 16 })),
+                        React.createElement("button", { onClick: () => handleDelete(item), className: "p-2 text-red-600 hover:bg-red-50 rounded transition-colors" },
+                            React.createElement(Trash2, { size: 16 })))))))),
+                items.length === 0 && (React.createElement("li", { className: "p-8 text-center text-gray-400" }, "Nenhum registro encontrado."))))));
+};
+// --- TELA DE BACKUP ---
+const BackupScreen = ({ data, setData, showToast, dbOp, onPrintReport }) => {
+    const fileInputRef = useRef(null);
+    const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
+    const [reportStartDate, setReportStartDate] = useState('');
+    const [reportEndDate, setReportEndDate] = useState('');
+    const handleDownloadPDF = async () => {
+        if (reportStartDate && reportEndDate && reportStartDate > reportEndDate) {
+            showToast('A data inicial não pode ser maior que a data final.', 'warning');
+            return;
+        }
+        const reportTithes = data.tithes.filter((t) => {
+            const afterStart = reportStartDate ? t.date >= reportStartDate : true;
+            const beforeEnd = reportEndDate ? t.date <= reportEndDate : true;
+            return afterStart && beforeEnd;
+        });
+        setIsGeneratingPDF(true);
+        const loadScript = (src) => new Promise((resolve, reject) => {
+            if (document.querySelector(`script[src="${src}"]`))
+                return resolve();
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = () => resolve();
+            script.onerror = () => reject();
+            document.head.appendChild(script);
+        });
+        try {
+            // Carrega bibliotecas geradoras de PDF dinamicamente (Ficam salvas no cache para uso offline)
+            await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+            await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js');
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            // Cabeçalho
+            doc.setFontSize(20);
+            doc.text(data.settings.churchName, 14, 20);
+            doc.setFontSize(14);
+            doc.setTextColor(100);
+            doc.text("Relatório Detalhado Geral de Dízimos", 14, 30);
+            doc.setFontSize(10);
+            doc.text(`Gerado em: ${new Date().toLocaleString('pt-BR')}`, 14, 36);
+            if (reportStartDate || reportEndDate) {
+                const periodStart = reportStartDate ? formatDate(reportStartDate) : 'início';
+                const periodEnd = reportEndDate ? formatDate(reportEndDate) : 'hoje';
+                doc.text(`Período dos lançamentos: ${periodStart} até ${periodEnd}`, 14, 42);
+            }
+            // Resumo Financeiro
+            const total = reportTithes.reduce((a, b) => a + b.value, 0);
+            const count = reportTithes.length;
+            const max = count > 0 ? Math.max(...reportTithes.map((t) => t.value)) : 0;
+            const avg = count > 0 ? total / count : 0;
+            doc.setTextColor(0);
+            doc.setFontSize(12);
+            doc.text(`Total Arrecadado: ${formatCurrency(total)}`, 14, 50);
+            doc.text(`Quantidade de Lançamentos: ${count}`, 14, 56);
+            doc.text(`Maior Dízimo: ${formatCurrency(max)}`, 110, 50);
+            doc.text(`Ticket Médio: ${formatCurrency(avg)}`, 110, 56);
+            let currentY = 70;
+            // Agrupamento por Igreja
+            const byChurch = {};
+            reportTithes.forEach((t) => {
+                const name = t.churchName || 'Não informada';
+                byChurch[name] = (byChurch[name] || 0) + t.value;
+            });
+            if (Object.keys(byChurch).length > 0) {
+                doc.setFontSize(11);
+                doc.setFont(undefined, 'bold');
+                doc.text("Arrecadação por Congregação", 14, currentY);
+                currentY += 5;
+                const churchRows = Object.entries(byChurch)
+                    .sort((a, b) => b[1] - a[1])
+                    .map(([name, val]) => [name, formatCurrency(val)]);
+                doc.autoTable({
+                    startY: currentY,
+                    head: [["Congregação", "Total Arrecadado"]],
+                    body: churchRows,
+                    theme: 'grid',
+                    headStyles: { fillColor: [230, 230, 230], textColor: [0, 0, 0], fontStyle: 'bold' },
+                    margin: { bottom: 10 }
+                });
+                currentY = doc.lastAutoTable.finalY + 15;
+            }
+            // Histórico
+            const tableColumn = ["Data", "Membro", "Igreja", "Secretário", "Valor"];
+            const tableRows = [];
+            const sortedTithes = [...reportTithes].sort((a, b) => b.timestamp - a.timestamp);
+            sortedTithes.forEach((t) => {
+                tableRows.push([
+                    formatDate(t.date),
+                    t.memberName,
+                    t.churchName || 'Não informada',
+                    t.secretaryName,
+                    formatCurrency(t.value)
+                ]);
+            });
+            // Cor primária dinâmica configurada pelo usuário
+            const hexToRgb = (hex) => {
+                let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : [255, 122, 0];
+            };
+            const primaryRgb = hexToRgb(data.settings.primaryColor || '#FF7A00');
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'bold');
+            doc.text("Histórico de Lançamentos", 14, currentY - 5);
+            doc.autoTable({
+                startY: currentY,
+                head: [tableColumn],
+                body: tableRows,
+                theme: 'striped',
+                headStyles: { fillColor: primaryRgb },
+                styles: { fontSize: 9 }
+            });
+            const safeDate = new Date().toLocaleDateString('pt-BR').replace(/\//g, '-');
+            doc.save(`Relatorio_Dizimos_${safeDate}.pdf`);
+            showToast("PDF baixado com sucesso!");
+        }
+        catch (error) {
+            console.error("Erro ao gerar PDF:", error);
+            showToast("Motor PDF indisponível offline. Redirecionando para impressão nativa...", "warning");
+            // Fallback: Chama a tela de impressão nativa como plano B seguro.
+            if (onPrintReport)
+                onPrintReport();
+        }
+        finally {
+            setIsGeneratingPDF(false);
+        }
+    };
+    const exportBackup = async () => {
+        const backupData = {
+            version: 1,
+            date: new Date().toISOString(),
+            tithes: data.tithes,
+            members: data.members,
+            secretaries: data.secretaries,
+            churches: data.churches || [],
+            settings: { ...data.settings, lastBackup: Date.now() }
+        };
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData));
+        const dlAnchorElem = document.createElement('a');
+        dlAnchorElem.setAttribute("href", dataStr);
+        dlAnchorElem.setAttribute("download", `backup_dizimos_${new Date().getTime()}.json`);
+        dlAnchorElem.click();
+        // Atualiza data do último backup
+        await dbOp('settings', 'put', backupData.settings);
+        setData((prev) => ({ ...prev, settings: backupData.settings }));
+        showToast('Backup exportado com sucesso!');
+    };
+    const handleImport = (e) => {
+        const file = e.target.files?.[0];
+        if (!file)
+            return;
+        if (!window.confirm('ATENÇÃO: Importar um backup irá APAGAR todos os dados atuais e substituí-los pelos dados do arquivo. Tem certeza?')) {
+            e.target.value = '';
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            try {
+                const importedData = JSON.parse(event.target?.result);
+                if (!importedData.tithes || !importedData.members) {
+                    throw new Error("Arquivo de backup inválido.");
+                }
+                // Limpar DB
+                await dbOp('tithes', 'clear');
+                await dbOp('members', 'clear');
+                await dbOp('secretaries', 'clear');
+                await dbOp('churches', 'clear').catch(() => console.log('Tabela churches recém criada'));
+                await dbOp('settings', 'clear');
+                // Inserir novos dados (usando transações massivas seria melhor, mas promessas sequenciais servem aqui devido ao tamanho local)
+                for (let t of importedData.tithes)
+                    await dbOp('tithes', 'put', t);
+                for (let m of importedData.members)
+                    await dbOp('members', 'put', m);
+                for (let s of importedData.secretaries)
+                    await dbOp('secretaries', 'put', s);
+                if (importedData.churches) {
+                    for (let c of importedData.churches)
+                        await dbOp('churches', 'put', c);
+                }
+                if (importedData.settings)
+                    await dbOp('settings', 'put', importedData.settings);
+                setData(importedData);
+                showToast('Backup restaurado com sucesso! Sistema atualizado.');
+            }
+            catch (error) {
+                console.error(error);
+                showToast('Erro ao importar backup. Arquivo corrompido ou inválido.', 'error');
+            }
+            e.target.value = '';
+        };
+        reader.readAsText(file);
+    };
+    const lastBackupStr = data.settings.lastBackup ? new Date(data.settings.lastBackup).toLocaleString('pt-BR') : 'Nunca realizado';
+    return (React.createElement("div", { className: "max-w-3xl mx-auto" },
+        React.createElement("h2", { className: "text-2xl font-bold text-gray-800 mb-6" }, "Backup e Restaura\u00E7\u00E3o"),
+        React.createElement("div", { className: "bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-8" },
+            React.createElement("div", { className: "flex items-start gap-4 p-4 bg-blue-50 text-blue-800 rounded-xl" },
+                React.createElement(FileText, { size: 24, className: "shrink-0 mt-1" }),
+                React.createElement("p", { className: "text-sm" },
+                    React.createElement("strong", null, "Como funciona o armazenamento?"),
+                    " Todos os dados deste sistema ficam salvos ",
+                    React.createElement("em", null, "exclusivamente"),
+                    " no seu navegador (localStorage). Se voc\u00EA formatar o computador ou limpar os dados do navegador, voc\u00EA perder\u00E1 tudo. ",
+                    React.createElement("strong", null, "Fa\u00E7a backups regularmente!"))),
+            React.createElement("div", { className: "border-t border-gray-100 pt-6" },
+                React.createElement("h3", { className: "text-lg font-bold text-gray-800 mb-2" }, "Relat\u00F3rio Completo (PDF A4)"),
+                React.createElement("p", { className: "text-sm text-gray-500 mb-4" },
+                    "Gera um relat\u00F3rio gerencial detalhado com o resumo financeiro, arrecada\u00E7\u00F5es por congrega\u00E7\u00E3o e o hist\u00F3rico de lan\u00E7amentos do per\u00EDodo selecionado. ",
+                    React.createElement("strong", null, "Se deixar as datas em branco, o relat\u00F3rio completo ser\u00E1 gerado.")),
+                React.createElement("div", { className: "mb-4" },
+                    React.createElement("p", { className: "text-sm font-semibold text-gray-700 mb-2" }, "Filtrar lançamentos por período (opcional)"),
+                    React.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl" },
+                        React.createElement("label", { className: "text-sm text-gray-600" },
+                            React.createElement("span", { className: "block mb-1 font-medium" }, "Data inicial"),
+                            React.createElement("input", { type: "date", value: reportStartDate, onChange: (e) => setReportStartDate(e.target.value), className: "w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-800 focus:border-orange-500 outline-none bg-white" })),
+                        React.createElement("label", { className: "text-sm text-gray-600" },
+                            React.createElement("span", { className: "block mb-1 font-medium" }, "Data final"),
+                            React.createElement("input", { type: "date", value: reportEndDate, onChange: (e) => setReportEndDate(e.target.value), className: "w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-800 focus:border-orange-500 outline-none bg-white" }))),
+                    (reportStartDate || reportEndDate) && React.createElement("button", { onClick: () => { setReportStartDate(''); setReportEndDate(''); }, className: "mt-2 text-sm font-medium hover:underline", style: { color: 'var(--primary)' } }, "Limpar filtro")),
+                React.createElement("div", { className: "flex items-center gap-4" },
+                    React.createElement("button", { onClick: handleDownloadPDF, disabled: isGeneratingPDF, className: `flex items-center gap-2 px-6 py-3 font-bold text-white rounded-xl shadow-md transition-all transform hover:-translate-y-0.5 ${isGeneratingPDF ? 'opacity-70 cursor-not-allowed' : ''}`, style: { backgroundColor: 'var(--primary)' } },
+                        React.createElement(Printer, { size: 20 }),
+                        " ",
+                        isGeneratingPDF ? 'Gerando PDF...' : 'Baixar Relatório em PDF'))),
+            React.createElement("div", { className: "border-t border-gray-100 pt-6" },
+                React.createElement("h3", { className: "text-lg font-bold text-gray-800 mb-2" }, "Backup de Seguran\u00E7a (Arquivo JSON)"),
+                React.createElement("p", { className: "text-sm text-gray-500 mb-4" },
+                    "Gera um arquivo de sistema contendo os dados brutos. Utilize esta op\u00E7\u00E3o ",
+                    React.createElement("strong", null, "exclusivamente"),
+                    " para salvar um backup em Pen-drive ou para restaurar o sistema em outro computador."),
+                React.createElement("div", { className: "flex flex-col sm:flex-row sm:items-center gap-4" },
+                    React.createElement("button", { onClick: exportBackup, className: "flex items-center justify-center gap-2 px-6 py-3 font-bold text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-200 transition-all border border-gray-200" },
+                        React.createElement(Download, { size: 20 }),
+                        " Exportar Arquivo JSON"),
+                    React.createElement("span", { className: "text-xs text-gray-400" },
+                        "\u00DAltimo backup: ",
+                        lastBackupStr))),
+            React.createElement("div", { className: "border-t border-gray-100 pt-6" },
+                React.createElement("h3", { className: "text-lg font-bold text-gray-800 mb-2 text-red-600" }, "Importar Dados (Restaurar)"),
+                React.createElement("p", { className: "text-sm text-gray-500 mb-4" },
+                    "Carregue um arquivo de backup (.json) para restaurar o sistema. ",
+                    React.createElement("strong", null, "Cuidado: isso apagar\u00E1 os dados atuais do navegador!")),
+                React.createElement("input", { type: "file", accept: ".json", ref: fileInputRef, onChange: handleImport, className: "hidden" }),
+                React.createElement("button", { onClick: () => fileInputRef.current?.click(), className: "flex items-center gap-2 px-6 py-3 font-bold text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-200 transition-all border border-gray-200" },
+                    React.createElement(Upload, { size: 20 }),
+                    " Selecionar Arquivo de Backup")))));
+};
+// --- COMPONENTE DE RELATÓRIO DETALHADO (A4) ---
+const DetailedReport = ({ data, onDone }) => {
+    useEffect(() => {
+        // Altera o título temporariamente para que o arquivo PDF assuma este nome
+        const originalTitle = document.title;
+        document.title = `Relatorio_Dizimos_${new Date().toLocaleDateString('pt-BR').replace(/\//g, '-')}`;
+        // Aguarda o React renderizar a página antes de abrir o diálogo de impressão
+        const timer = setTimeout(() => {
+            window.print();
+            onDone(); // Volta para a tela do sistema ao fechar a impressão
+            document.title = originalTitle;
+        }, 800);
+        return () => clearTimeout(timer);
+    }, [onDone]);
+    const total = data.tithes.reduce((a, b) => a + b.value, 0);
+    const count = data.tithes.length;
+    const max = count > 0 ? Math.max(...data.tithes.map((t) => t.value)) : 0;
+    const avg = count > 0 ? total / count : 0;
+    // Agrupamento por Igreja
+    const byChurch = {};
+    data.tithes.forEach((t) => {
+        const name = t.churchName || 'Não informada';
+        byChurch[name] = (byChurch[name] || 0) + t.value;
+    });
+    // Ordenar dízimos por data mais recente
+    const sortedTithes = [...data.tithes].sort((a, b) => b.timestamp - a.timestamp);
+    return (React.createElement("div", { className: "bg-white text-black min-h-screen font-sans", style: { padding: '15mm', maxWidth: '210mm', margin: '0 auto' } },
+        React.createElement("style", null, `
+        * { box-sizing: border-box; }
+        @page { size: A4; margin: 10mm; }
+        @media print {
+          body { background-color: #fff; margin: 0; padding: 0; -webkit-print-color-adjust: exact; }
+          .page-break { page-break-before: always; }
+          .avoid-break { page-break-inside: avoid; }
+          /* Esconde botões do browser se houver */
+          ::-webkit-scrollbar { display: none; }
+        }
+      `),
+        React.createElement("div", { className: "text-center mb-8 border-b-2 border-gray-800 pb-4" },
+            React.createElement("h1", { className: "text-3xl font-bold uppercase tracking-wider" }, data.settings.churchName),
+            React.createElement("h2", { className: "text-xl font-semibold mt-2 text-gray-700" }, "Relat\u00F3rio Detalhado Geral de D\u00EDzimos"),
+            React.createElement("p", { className: "text-sm text-gray-500 mt-1" },
+                "Gerado em: ",
+                new Date().toLocaleString('pt-BR'))),
+        React.createElement("div", { className: "grid grid-cols-2 gap-6 mb-8" },
+            React.createElement("div", { className: "border border-gray-300 p-4 rounded-lg avoid-break" },
+                React.createElement("h3", { className: "text-sm text-gray-500 font-bold uppercase mb-1" }, "Resumo Financeiro"),
+                React.createElement("p", { className: "text-3xl font-bold text-gray-900" }, formatCurrency(total)),
+                React.createElement("p", { className: "text-sm text-gray-600 mt-2 flex justify-between" },
+                    React.createElement("span", null, "Ticket M\u00E9dio:"),
+                    " ",
+                    React.createElement("strong", null, formatCurrency(avg))),
+                React.createElement("p", { className: "text-sm text-gray-600 flex justify-between" },
+                    React.createElement("span", null, "Maior D\u00EDzimo:"),
+                    " ",
+                    React.createElement("strong", { className: "text-green-600" }, formatCurrency(max)))),
+            React.createElement("div", { className: "border border-gray-300 p-4 rounded-lg avoid-break" },
+                React.createElement("h3", { className: "text-sm text-gray-500 font-bold uppercase mb-1" }, "Estat\u00EDsticas Gerais"),
+                React.createElement("p", { className: "text-3xl font-bold text-gray-900" },
+                    count,
+                    " ",
+                    React.createElement("span", { className: "text-lg font-normal text-gray-600" }, "lan\u00E7amentos")),
+                React.createElement("p", { className: "text-sm text-gray-600 mt-2 flex justify-between" },
+                    React.createElement("span", null, "Membros Cadastrados:"),
+                    " ",
+                    React.createElement("strong", null, data.members.length)),
+                React.createElement("p", { className: "text-sm text-gray-600 flex justify-between" },
+                    React.createElement("span", null, "Secret\u00E1rios:"),
+                    " ",
+                    React.createElement("strong", null, data.secretaries.length)))),
+        Object.keys(byChurch).length > 0 && (React.createElement("div", { className: "mb-8 avoid-break" },
+            React.createElement("h3", { className: "text-lg font-bold mb-3 border-b border-gray-300 pb-1 uppercase tracking-wide text-gray-800" }, "Arrecada\u00E7\u00E3o por Congrega\u00E7\u00E3o"),
+            React.createElement("div", { className: "grid grid-cols-2 gap-4" }, Object.entries(byChurch)
+                .sort((a, b) => b[1] - a[1]) // Maior valor primeiro
+                .map(([name, val]) => (React.createElement("div", { key: name, className: "flex justify-between border-b border-gray-200 py-2" },
+                React.createElement("span", { className: "font-medium text-gray-700" }, name),
+                React.createElement("span", { className: "font-bold" }, formatCurrency(val)))))))),
+        React.createElement("div", { className: "mt-8" },
+            React.createElement("h3", { className: "text-lg font-bold mb-4 border-b-2 border-gray-800 pb-1 uppercase tracking-wide text-gray-800" }, "Hist\u00F3rico Completo de Lan\u00E7amentos"),
+            React.createElement("table", { className: "w-full text-left text-sm border-collapse" },
+                React.createElement("thead", null,
+                    React.createElement("tr", { className: "border-b-2 border-gray-800 text-gray-800" },
+                        React.createElement("th", { className: "py-2 px-1 font-bold" }, "Data"),
+                        React.createElement("th", { className: "py-2 px-1 font-bold" }, "Membro"),
+                        React.createElement("th", { className: "py-2 px-1 font-bold" }, "Igreja"),
+                        React.createElement("th", { className: "py-2 px-1 font-bold" }, "Secret\u00E1rio"),
+                        React.createElement("th", { className: "py-2 px-1 text-right font-bold" }, "Valor"))),
+                React.createElement("tbody", null,
+                    sortedTithes.map((t) => (React.createElement("tr", { key: t.id, className: "border-b border-gray-200 avoid-break" },
+                        React.createElement("td", { className: "py-2 px-1 whitespace-nowrap" },
+                            formatDate(t.date),
+                            " ",
+                            React.createElement("span", { className: "text-xs text-gray-500" }, t.time)),
+                        React.createElement("td", { className: "py-2 px-1 font-medium" }, t.memberName),
+                        React.createElement("td", { className: "py-2 px-1 text-gray-600" }, t.churchName || 'Não informada'),
+                        React.createElement("td", { className: "py-2 px-1 text-gray-600" }, t.secretaryName),
+                        React.createElement("td", { className: "py-2 px-1 text-right font-bold" }, formatCurrency(t.value))))),
+                    sortedTithes.length === 0 && (React.createElement("tr", null,
+                        React.createElement("td", { colSpan: 5, className: "py-4 text-center text-gray-500 italic" }, "Nenhum registro encontrado."))))))));
+};
+// --- TELA DE CONFIGURAÇÕES ---
+const SettingsScreen = ({ data, saveData, showToast }) => {
+    const [churchName, setChurchName] = useState(data.settings.churchName || '');
+    const [primaryColor, setPrimaryColor] = useState(data.settings.primaryColor || '#FF7A00');
+    const handleSave = async () => {
+        const updatedSettings = { ...data.settings, churchName, primaryColor };
+        await saveData('settings', updatedSettings);
+        showToast('Configurações salvas com sucesso.');
+    };
+    const colors = ['#FF7A00', '#2563EB', '#16A34A', '#DC2626', '#7C3AED', '#4F46E5', '#000000'];
+    return (React.createElement("div", { className: "max-w-2xl mx-auto" },
+        React.createElement("h2", { className: "text-2xl font-bold text-gray-800 mb-6" }, "Configura\u00E7\u00F5es do Sistema"),
+        React.createElement("div", { className: "bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-6" },
+            React.createElement("div", null,
+                React.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Nome da Igreja / Congrega\u00E7\u00E3o"),
+                React.createElement("input", { type: "text", value: churchName, onChange: (e) => setChurchName(e.target.value), className: "w-full border border-gray-300 rounded-lg p-3 text-gray-800 focus:border-orange-500 outline-none" })),
+            React.createElement("div", null,
+                React.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Cor Principal do Sistema"),
+                React.createElement("div", { className: "flex gap-3 mb-3" }, colors.map(color => (React.createElement("button", { key: color, onClick: () => setPrimaryColor(color), className: `w-10 h-10 rounded-full flex items-center justify-center transition-transform hover:scale-110 ${primaryColor === color ? 'ring-2 ring-offset-2 ring-gray-400' : ''}`, style: { backgroundColor: color } }, primaryColor === color && React.createElement(CheckCircle, { size: 16, color: "white" }))))),
+                React.createElement("div", { className: "flex items-center gap-2" },
+                    React.createElement("span", { className: "text-sm text-gray-500" }, "Cor customizada (Hex):"),
+                    React.createElement("input", { type: "color", value: primaryColor, onChange: (e) => setPrimaryColor(e.target.value), className: "h-8 w-14 cursor-pointer" }))),
+            React.createElement("div", { className: "pt-4 border-t border-gray-100" },
+                React.createElement("button", { onClick: handleSave, className: "w-full py-4 font-bold text-white rounded-xl shadow-md transition-all hover:-translate-y-0.5", style: { backgroundColor: 'var(--primary)' } }, "Salvar Configura\u00E7\u00F5es")))));
+};
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+
+    }
+  </script>
 </body>
 </html>
